@@ -1,0 +1,144 @@
+@charset "utf-8";
+/*cssreset*/
+body {
+  font: 14px "microsoft yahei", Arial, Helvetica, sans-serif;
+  color: #666;
+  margin: 0px;
+  padding: 0px;
+}
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dl,
+dt,
+dd {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+a {
+  color: #999;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: #ff0700;
+}
+input {
+  border: none;
+}
+.lf {
+  float: left;
+}
+.rf {
+  float: right;
+}
+.clear {
+  clear: both;
+}
+body {
+  background-color: #006699;
+}
+header {
+  height: 48px;
+  border-bottom: 2px solid #aaa;
+}
+.header-logo {
+  float: left;
+  margin-left: 20px;
+  height: 48px;
+}
+.header-logo > a {
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+}
+.header-logo img {
+  height: 100%;
+}
+.header-nav {
+  float: right;
+  height: 48px;
+  padding-top: 8px;
+  margin-right: 20px;
+}
+.header-nav > a {
+  display: inline-block;
+  height: 32px;
+  width: 40px;
+  margin: 0 10px;
+}
+.header-nav > a:hover {
+  background-color: #0088cc;
+}
+.header-nav-home {
+  background: url(../images/home.png) no-repeat center;
+  background-size: contain;
+}
+.header-nav-explore {
+  background: url(../images/explore.png) no-repeat center;
+  background-size: contain;
+}
+.header-nav-user {
+  background: url(../images/user.png) no-repeat center;
+  background-size: cover;
+}
+.header-nav-envelope {
+  background: url(../images/envelope.png) no-repeat center;
+  background-size: contain;
+}
+.header-nav-edit {
+  background: url(../images/edit.png) no-repeat center;
+  background-size: contain;
+}
+
+.column_left {
+  width: 700px;
+  margin: 0 auto;
+}
+.posts {
+  margin-top: 20px;
+  width: 700px;
+}
+
+.post {
+  margin-bottom: 20px;
+}
+.avatar {
+  width: 80px;
+  float: left;
+}
+.avatar > img {
+  width: 60px;
+  height: 60px;
+}
+.post_content {
+  width: 596px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.post_header {
+  height: 36px;
+  line-height: 36px;
+  padding-left: 16px;
+  color: #999;
+}
+.post_body {
+}
+.post_body > p {
+  padding: 5px;
+}
+.post_footer {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 20px;
+}
