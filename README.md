@@ -2,6 +2,13 @@
 
 a blog service side use node,express, mongodb handlebars
 
+# 使用
+
+* 克隆项目
+  git clone https://github.com/wflixu/today-server
+* 启动项目
+  npm run start
+
 #目录结构
 
 dispatch.js 主进程文件

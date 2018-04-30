@@ -1,0 +1,21 @@
+{{#section 'pagestyle'}}
+<link rel="stylesheet" href="css/post.css"> {{/section}}
+<div class="container ">
+    <form role="form" action="/api/blog" method="POST">
+        <div class="form-group">
+            <label for="post_title">标题</label>
+            <input type="text" class="form-control" id="post_title" placeholder="标题" name="post_title">
+        </div>
+        <div class="form-group">
+            <label for="post_content">内容</label>
+            <textarea class="form-control" id="post_content" rows="5" name="post_content"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="attachment">Example file input</label>
+            <input type="file" class="form-control-file" id="attachment" name="attachment">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">提交</button>
+    </form>
+</div>
+{{#section 'pagescript'}}
+<script src="js/post.js"></script> {{/section}}
