@@ -20,6 +20,8 @@
   "homepage": "https://github.com/wflixu/today-server#readme",
   "dependencies": {
     "egg": "^2.14.2",
+    "egg-mongoose": "^3.1.1",
+    "egg-view-handlebars": "^2.0.1",
     "egg-view-nunjucks": "^2.2.0"
   },
   "devDependencies": {

@@ -1,13 +1,13 @@
 # today-server
 
-a blog service side use node,express, mongodb handlebars
+a blog service side use node, egg, mongodb handlebars
 
 # 使用
 
 * 克隆项目
   git clone https://github.com/wflixu/today-server
 * 启动项目
-  npm run start
+  npm run dev
 
 # 目录结构
 
