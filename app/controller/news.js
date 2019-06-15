@@ -8,7 +8,14 @@ class NewsController extends Controller {
                 { id: 2, title: 'this is news 2', url: '/news/2' }
             ]
         };
-        await this.ctx.render('news/list.tpl', dataList);
+
+        // this.ctx.body= 'new ';
+        await this.ctx.render('news/list', dataList);
+    }
+    async content(){
+        // var id = this.ctx.query.id;
+       let id = this.ctx.params.id;
+        this.ctx.body=`新闻详情 id: ${id}`;
     }
 }
 
