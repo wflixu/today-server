@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "egg-bin dev",
-    "start": "node ./bin/www"
+    "start": "nodemon koa/index"
   },
   "repository": {
     "type": "git",
@@ -19,12 +19,14 @@
   },
   "homepage": "https://github.com/wflixu/today-server#readme",
   "dependencies": {
-    "egg": "^2.14.2",
-    "egg-mongoose": "^3.1.1",
+    "egg": "^2.22.2",
+    "egg-mongoose": "^3.2.0",
     "egg-view-handlebars": "^2.0.1",
-    "egg-view-nunjucks": "^2.2.0"
+    "egg-view-nunjucks": "^2.2.0",
+    "koa": "^2.7.0"
   },
   "devDependencies": {
-    "egg-bin": "^4.10.0"
+    "egg-bin": "^4.13.0",
+    "nodemon": "^1.19.1"
   }
 }

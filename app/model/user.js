@@ -3,10 +3,12 @@ module.exports = app => {
     const Schema = mongoose.Schema;
 
     const UserSchema = new Schema({
-        name: { type: String },
-        age: { type: String }
+        uname: { type: String },
+        pass: { type: String },
+        uid: { type: String },
+        age: { type: Number }
     });
 
-    return mongoose.model('User', UserSchema);
+    return mongoose.model('User', UserSchema,'user');
 }
 
