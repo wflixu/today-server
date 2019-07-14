@@ -6,7 +6,6 @@ module.exports = app => {
     router.get('/user', controller.user.index);
     router.post('/user/login', controller.user.login);
     router.post('/user/sign', controller.user.sign);
-    router.get('/user/sign', controller.user.sign);
     router.get('/user/login', controller.user.login);
     router.get('/api/user', controller.api.user);
     router.get('/api/users/:count', controller.api.users);

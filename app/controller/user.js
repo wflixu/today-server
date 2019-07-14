@@ -6,26 +6,21 @@ const Controller = require('egg').Controller;
 
 class UserController extends Controller {
   async index() {
-    await this.ctx.render('user.hbs',{});
+    await this.ctx.render('user.hbs', {});
   }
 
-  async sign(){
+  async sign() {
     const result = await this.ctx.service.user.sign();
-    if(result.uname&& result.pass){
-      this.ctx.body ='success';
-    }else{
-      this.ctx.body ='error';
-    }
-    
+    this.ctx.body = result;
   }
-  async login(){
+  async login() {
     const result = await this.ctx.service.user.login();
-    if(result.length==1){
-      this.ctx.body ='success';
-    }else {
-      this.ctx.body ='error';
+    if (result.length == 1) {
+      this.ctx.body = 'success';
+    } else {
+      this.ctx.body = 'error';
     }
-    this.ctx.status =200;
+    this.ctx.status = 200;
   }
 }
 
