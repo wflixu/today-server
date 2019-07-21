@@ -1,11 +1,21 @@
+const Grid = require('gridfs-stream');
 module.exports = app => {
-    const { router, controller } = app;
+
+    const { router, controller, mongoose, mongooseDB, ctx } = app;
+    Grid.mongo = mongoose.mongo;
+    
+    mongoose.connection.once("open", () => {
+        let gfs = Grid(mongoose.connection);
+        app.router['gfs'] = gfs;
+    });
+
     router.get('/', controller.home.index);
     router.get('/news', controller.news.list);
     router.get('/content/:id', controller.news.content);
     router.get('/user', controller.user.index);
     router.post('/user/login', controller.user.login);
     router.post('/user/sign', controller.user.sign);
+    router.post('/user/post', controller.user.post);
     router.get('/user/login', controller.user.login);
     router.get('/api/user', controller.api.user);
     router.get('/api/users/:count', controller.api.users);

@@ -25,3 +25,10 @@ a blog service side use node, egg, mongodb handlebars
 * test/ 测试
 * bin/ 相关运行脚本
 * node_moudules
+
+# 路由配置表
+| 路径  | 功能      |
+|----    |----  |
+| /user/login| 登陆 |
+| /user/sign| 注册 |
+| /user/post| 发表博文 |

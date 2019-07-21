@@ -13,19 +13,13 @@ module.exports = app => {
 
       async sign() {
         let {uname,pass} = this.ctx.request.body;
-
-        console.log('##########',uname,pass);
-        
- 
         let user = await this.ctx.model.User.find({uname:uname});
-        
         if(user.length>0){
          return 'none'
         }else{
           user = await this.ctx.model.User.create({
             uname:uname,pass:pass
           });
-          console.log('!!!!!!!!',user);
           if(user.uname&&user.pass){
            return 'success';
           }else{
