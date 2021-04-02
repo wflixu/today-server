@@ -1,34 +1,33 @@
 # today-server
 
-a blog service side use node, egg, mongodb handlebars
 
-# 使用
 
-* 克隆项目
-  git clone https://github.com/wflixu/today-server
-* 启动项目
-  npm run dev
+## QuickStart
 
-# 目录结构
+<!-- add docs here for user -->
 
-* dispatch.js 主进程文件
-* worker.js 工作进程
-* app.js 应用
-* routes.js url 路由表
-* package.json 依赖模块
-* controllers/ 业务逻辑相关
-* views/ 试图模板
-* common/ 跟业务相关的公共模块
-* proxy/ 数据访问代理层
-* lib/ 跟业务无关的公共模块
-* public/ images|scripts|styles
-* test/ 测试
-* bin/ 相关运行脚本
-* node_moudules
+see [egg docs][egg] for more detail.
 
-# 路由配置表
-| 路径  | 功能      |
-|----    |----  |
-| /user/login| 登陆 |
-| /user/sign| 注册 |
-| /user/post| 发表博文 |
+### Development
+
+```bash
+$ npm i
+$ npm run dev
+$ open http://localhost:7001/
+```
+
+### Deploy
+
+```bash
+$ npm start
+$ npm stop
+```
+
+### npm scripts
+
+- Use `npm run lint` to check code style.
+- Use `npm test` to run unit test.
+- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+
+
+[egg]: https://eggjs.org

@@ -1,32 +1,46 @@
 {
   "name": "today-server",
   "version": "1.0.0",
-  "description": "a blog service side use node,express, mongodb handlebars",
+  "description": "",
   "private": true,
+  "egg": {
+    "declarations": true
+  },
+  "dependencies": {
+    "egg": "^2.15.1",
+    "egg-scripts": "^2.11.0"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-server-today-server",
+    "stop": "egg-scripts stop --title=egg-server-today-server",
     "dev": "egg-bin dev",
-    "start": "nodemon koa/index"
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "10"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wflixu/today-server.git"
+    "url": ""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wflixu/today-server/issues"
-  },
-  "homepage": "https://github.com/wflixu/today-server#readme",
-  "dependencies": {
-    "egg": "^2.22.2",
-    "egg-mongoose": "^3.2.0",
-    "egg-view-handlebars": "^2.0.1",
-    "egg-view-nunjucks": "^2.2.0",
-    "koa": "^2.7.0"
-  },
-  "devDependencies": {
-    "egg-bin": "^4.13.0",
-    "nodemon": "^1.19.1"
-  }
+  "author": "wflix",
+  "license": "MIT"
 }
