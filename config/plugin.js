@@ -6,13 +6,29 @@ module.exports = {
   static: {
     enable: true,
   },
-  mongoose:{
+  mongoose: {
     enable: true,
     package: 'egg-mongoose',
   },
-  handlebars:{
+  handlebars: {
     enable: true,
     package: 'egg-view-handlebars',
+  },
+  cors: {
+    enable: true,
+    package: 'egg-cors'
+  },
+  validate: {
+    enable: true,
+    package: 'egg-validate',
+  },
+  bcrypt: {
+    enable: true,
+    package: 'egg-bcrypt'
+  },
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
   }
 };
 

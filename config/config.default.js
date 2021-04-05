@@ -21,8 +21,7 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = [
-
-
+    'errorHandler'
   ];
 
   // add your user config here
@@ -31,7 +30,9 @@ module.exports = appInfo => {
     mongoose: {
       client: {
         url: 'mongodb://192.168.31.218:27017/today',
-        options: {},
+        options: {
+          autoReconnect: true,
+        },
         // mongoose global plugins, expected a function or an array of function and options
         // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],
         plugins: []
@@ -47,6 +48,28 @@ module.exports = appInfo => {
       mapping: {
         '.hbs': 'handlebars',
       },
+    },
+    security: {
+      csrf: {
+        enable: false,
+        ignoreJSON: true
+      },
+      // domainWhiteList: ['http://localhost:3000']
+    },
+    multipart: {
+      fileExtensions: ['.apk', '.pptx', '.docx', '.csv', '.doc', '.ppt', '.pdf', '.pages', '.wav', '.mov'],
+    },
+    bcrypt: {
+      saltRounds: 10 // default 10
+    },
+    cors: {
+      origin: '*',
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+    },
+    jwt: {
+      secret: 'Great4-M',
+      enable: true, // default is false
+      match: '/jwt', // optional
     }
 
   };
