@@ -14,7 +14,6 @@
 see [egg docs][egg] for more detail.
 
 
-
 ## Development
 
 ```bash

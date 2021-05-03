@@ -4,6 +4,7 @@ class UserService extends Service {
   // create======================================================================================================>
   async create(payload) {
     const { ctx, service } = this
+    payload.role = '606b12a332769fddb075fb3b';
     const role = await service.role.show(payload.role)
     if (!role) {
       ctx.throw(404, 'role is not found')
@@ -84,6 +85,10 @@ class UserService extends Service {
   // Commons======================================================================================================>
   async findByMobile(mobile) {
     return this.ctx.model.User.findOne({mobile: mobile})
+  }
+
+  async findByName(username) {
+    return this.ctx.model.User.findOne({username})
   }
 
   async find(id) {

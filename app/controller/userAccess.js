@@ -12,7 +12,7 @@ class UserAccessController extends Controller {
     super(ctx)
 
     this.UserLoginTransfer = {
-      mobile: { type: 'string', required: true, allowEmpty: false },
+      username: { type: 'string', required: true, allowEmpty: false },
       password: { type: 'string', required: true, allowEmpty: false }
     }
 
@@ -22,7 +22,7 @@ class UserAccessController extends Controller {
     }
 
     this.UserUpdateTransfer = {
-      mobile: { type: 'string', required: true, allowEmpty: false },
+      // mobile: { type: 'string', required: true, allowEmpty: false },
       realName: {type: 'string', required: true, allowEmpty: false, format: /^[\u2E80-\u9FFF]{2,6}$/}
     }
   }

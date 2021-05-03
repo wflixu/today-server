@@ -6,7 +6,7 @@ class UserAccessService extends Service {
 
   async login(payload) {
     const { ctx, service } = this
-    const user = await service.user.findByMobile(payload.mobile)
+    const user = await service.user.findByName(payload.username)
     if(!user){
       ctx.throw(404, 'user not found')
     }

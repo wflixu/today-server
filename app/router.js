@@ -6,6 +6,7 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
+
   // router.get('/api/user', controller.api.user);
   // router.post('/api/user', controller.user.create)
   // router.delete('/api/user/:id', controller.user.destroy)
@@ -13,11 +14,11 @@ module.exports = app => {
   // router.get('/api/user/:id', controller.user.show)
 
   // role
-  // router.post('/api/role', controller.role.create)
-  // router.delete('/api/role/:id', controller.role.destroy)
-  // router.put('/api/role/:id', controller.role.update)
-  // router.get('/api/role/:id', controller.role.show)
-  // router.get('/api/role', controller.role.index)
+  router.post('/api/role', controller.role.create)
+  router.delete('/api/role/:id', controller.role.destroy)
+  router.put('/api/role/:id', controller.role.update)
+  router.get('/api/role/:id', controller.role.show)
+  router.get('/api/role', controller.role.index)
   router.delete('/api/role', controller.role.removes)
   router.resources('role', '/api/role', controller.role)
 
