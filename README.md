@@ -2,6 +2,8 @@
 
 基于Egg.js的 RESTful API 服务，用于快速集成开发RESTful前后端分离的服务端。 (建议用于学习入门EGGJS和Mongoose,如果作为生产请自行优化和改造)
 
+前台使用vite TypeScript vue3 ant-design-vue
+
 ## 特性
 - ⚡ 框架选择：基于 Egg.js 2.0 
 - 🔥 数据模型：基于 Mongoose 存储
@@ -18,7 +20,10 @@ see [egg docs][egg] for more detail.
 
 ```bash
 $ npm i
-$ npm run dev
+# 启动后台
+$ npm run dev 
+# 启动前台
+$ npm run dev:vite 
 $ open http://localhost:7001/
 ```
 

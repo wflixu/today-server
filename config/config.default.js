@@ -30,6 +30,7 @@ module.exports = appInfo => {
     mongoose: {
       client: {
         url: 'mongodb://127.0.0.1:27017/today',
+        // url: 'mongodb://192.168.31.218:27017/today',
         options: {
           autoReconnect: true,
         },
