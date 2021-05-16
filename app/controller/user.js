@@ -5,7 +5,7 @@ class UserController extends Controller {
     super(ctx);
 
     this.UserCreateTransfer = {
-      // mobile: {type: 'string', allowEmpty: false, format: /^[0-9]{11}$/},
+      mobile: {type: 'string', allowEmpty: true, format: /^[0-9]{11}$/},
       password: { type: "password", required: true, allowEmpty: false, min: 3 },
       username: {
         type: "string",
@@ -29,9 +29,8 @@ class UserController extends Controller {
   // 创建用户
   async create() {
     const { ctx, service } = this;
-    console.warn("@#$%%%%^^&&&*^%$%^&&&*&**");
     // 校验参数
-    ctx.validate(this.UserCreateTransfer);
+    // ctx.validate(this.UserCreateTransfer);
     // 组装参数
     const payload = ctx.request.body || {};
     // 调用 Service 进行业务处理
