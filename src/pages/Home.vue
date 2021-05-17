@@ -29,7 +29,10 @@ export default defineComponent({
   setup: () => {
     const router = useRouter();
     const route = useRoute();
-
+    let token  = window.localStorage.getItem('token');
+    if(!token){
+      router.push('/login');
+    }
     let onClick = (key: string) => {
       router.push(key);
     };

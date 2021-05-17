@@ -75,8 +75,11 @@ class RoleService extends Service {
   }
 
   // Commons======================================================================================================>
-  async find(id) {
-    return this.ctx.model.Role.findById(id)
+  async find(_id) {
+    return this.ctx.model.Role.findById(_id)
+  }
+  async findByName(name) {
+    return this.ctx.model.Role.findById(name)
   }
 
 }

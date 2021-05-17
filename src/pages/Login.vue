@@ -133,7 +133,8 @@ export default defineComponent({
              if(!res.data.code){
                let { token } =  res.data.data;
                console.log(token);
-               
+               window.localStorage.setItem('token',token);
+               router.push('/home');
              }
           });
       }

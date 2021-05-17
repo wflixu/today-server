@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, UnwrapRef } from "vue";
+import { defineComponent, onMounted, reactive, ref, UnwrapRef } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import axios from "axios";
@@ -49,14 +49,27 @@ import { useRoute, useRouter } from "vue-router";
 interface FormState {
   username: string;
   password: string;
+  role:string;
 }
 
 export default defineComponent({
   setup() {
+
     const formState: UnwrapRef<FormState> = reactive({
       username: "lx",
       password: "123",
+      role:''
     });
+    let role = ref('');
+     onMounted(() => {
+       axios.get('/api/role').then(res=>{
+         console.log(res.data);
+         if(!res.data.code){
+           role.value = res.data.data.list[0]._id ;
+         }
+         
+       })
+    })
     const router = useRouter();
     const route = useRoute();
     const handleFinish = (values: FormState) => {
@@ -64,6 +77,7 @@ export default defineComponent({
       let data = {
         password: formState.password,
         username: formState.username,
+        role:role.value
       };
       // 注册
       axios
