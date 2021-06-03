@@ -48,5 +48,5 @@ module.exports = app => {
   router.get('/api/upload/:id', controller.upload.show)
   router.get('/api/upload', controller.upload.index)
   router.delete('/api/upload', controller.upload.removes)
-  // router.resources('upload', '/api/upload', controller.upload)
+  router.resources('upload', '/api/upload', controller.upload)
 };

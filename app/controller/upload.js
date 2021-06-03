@@ -24,9 +24,9 @@ class UploadController extends Controller {
     const attachment = new this.ctx.model.Attachment
     attachment.extname = extname
     attachment.filename = filename
-    attachment.url = `/uploads/${attachment._id.toString()}${extname}`
+    attachment.url = `/public/uploads/${attachment._id.toString()}${extname}`
     // 组装参数 stream
-    const target = path.join(this.config.baseDir, 'public/uploads', `${attachment._id.toString()}${attachment.extname}`)
+    const target = path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id.toString()}${attachment.extname}`)
     const writeStream = fs.createWriteStream(target)
     // 文件处理，上传到云存储等等
     try {
@@ -52,7 +52,7 @@ class UploadController extends Controller {
     const extname = path.extname(url).toLowerCase() // 文件扩展名称
     const options = {
       url: url,
-      dest: path.join(this.config.baseDir, 'public/uploads/', `${attachment._id.toString()}${extname}`)
+      dest: path.join(this.config.baseDir, 'app/public/uploads/', `${attachment._id.toString()}${extname}`)
     }
     let res    
     try {
@@ -60,7 +60,7 @@ class UploadController extends Controller {
       await download.image(options)
       attachment.extname = extname
       attachment.filename = filename
-      attachment.url = `/uploads/${attachment._id.toString()}${extname}`
+      attachment.url = `/public/uploads/${attachment._id.toString()}${extname}`
       res = await service.upload.create(attachment)
     } catch (err) {
       throw err
@@ -104,9 +104,9 @@ class UploadController extends Controller {
         const attachment = new ctx.model.Attachment
         attachment.extname = extname
         attachment.filename = filename
-        attachment.url = `/uploads/${attachment._id.toString()}${extname}`
+        attachment.url = `/public/uploads/${attachment._id.toString()}${extname}`
         // const target = path.join(this.config.baseDir, 'app/public/uploads', filename)
-        const target = path.join(this.config.baseDir, 'public/uploads', `${attachment._id.toString()}${extname}`)        
+        const target = path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id.toString()}${extname}`)        
         const writeStream = fs.createWriteStream(target)
         // 文件处理，上传到云存储等等
         let res

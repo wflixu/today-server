@@ -7,7 +7,7 @@ yarn.lock
 coverage/
 node_modules
 dist
-public/uploads/*
+app/public/uploads/*
 app/public/assets/
 .idea/
 run/
