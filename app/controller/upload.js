@@ -26,7 +26,7 @@ class UploadController extends Controller {
     attachment.filename = filename
     attachment.url = `/uploads/${attachment._id.toString()}${extname}`
     // 组装参数 stream
-    const target = path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id.toString()}${attachment.extname}`)
+    const target = path.join(this.config.baseDir, 'public/uploads', `${attachment._id.toString()}${attachment.extname}`)
     const writeStream = fs.createWriteStream(target)
     // 文件处理，上传到云存储等等
     try {
@@ -52,7 +52,7 @@ class UploadController extends Controller {
     const extname = path.extname(url).toLowerCase() // 文件扩展名称
     const options = {
       url: url,
-      dest: path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id.toString()}${extname}`)
+      dest: path.join(this.config.baseDir, 'public/uploads/', `${attachment._id.toString()}${extname}`)
     }
     let res    
     try {
@@ -106,7 +106,7 @@ class UploadController extends Controller {
         attachment.filename = filename
         attachment.url = `/uploads/${attachment._id.toString()}${extname}`
         // const target = path.join(this.config.baseDir, 'app/public/uploads', filename)
-        const target = path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id.toString()}${extname}`)        
+        const target = path.join(this.config.baseDir, 'public/uploads', `${attachment._id.toString()}${extname}`)        
         const writeStream = fs.createWriteStream(target)
         // 文件处理，上传到云存储等等
         let res
@@ -152,7 +152,7 @@ class UploadController extends Controller {
     attachment.extname = extname
     attachment.filename = filename
     attachment.url = `/uploads/${attachment._id.toString()}${extname}`
-    const target_U = path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id}${extname}`)      
+    const target_U = path.join(this.config.baseDir, 'public/uploads/', `${attachment._id}${extname}`)      
     const writeStream = fs.createWriteStream(target_U)
     // 文件处理，上传到云存储等等
     try {
