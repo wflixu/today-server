@@ -106,7 +106,7 @@ class UploadController extends Controller {
         attachment.filename = filename
         attachment.url = `/public/uploads/${attachment._id.toString()}${extname}`
         // const target = path.join(this.config.baseDir, 'app/public/uploads', filename)
-        const target = path.join(this.config.baseDir, 'app/public/uploads', `${attachment._id.toString()}${extname}`)        
+        const target = path.join(this.config.baseDir, 'app/public/uploads/', `${attachment._id.toString()}${extname}`)        
         const writeStream = fs.createWriteStream(target)
         // 文件处理，上传到云存储等等
         let res
@@ -151,8 +151,8 @@ class UploadController extends Controller {
     // 组装更新参数
     attachment.extname = extname
     attachment.filename = filename
-    attachment.url = `/uploads/${attachment._id.toString()}${extname}`
-    const target_U = path.join(this.config.baseDir, 'public/uploads/', `${attachment._id}${extname}`)      
+    attachment.url = `/public/uploads/${attachment._id.toString()}${extname}`
+    const target_U = path.join(this.config.baseDir, 'app/public/uploads/', `${attachment._id}${extname}`)      
     const writeStream = fs.createWriteStream(target_U)
     // 文件处理，上传到云存储等等
     try {
