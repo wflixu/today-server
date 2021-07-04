@@ -11,6 +11,10 @@ import Sign from './pages/Sign.vue';
 
 import Test from './pages/Test.vue'
 
+import Post from './pages/blog/Post.vue';
+import PostDetail from './pages/blog/PostDetail.vue';
+
+import PostPage from './pages/Post.vue';
 // import Chart from './pages/echarts/Chart.vue';
 
 
@@ -34,6 +38,14 @@ export const routes: Array<any> = [
         component: Test
     },
     {
+        path: '/post',
+        component: Post
+    },
+    {
+        path: '/post/:id',
+        component: PostDetail
+    },
+    {
         path: '/admin',
         component: Admin,
         children: [
@@ -43,6 +55,11 @@ export const routes: Array<any> = [
             },
             { path: 'play', component: Play, title: 'play' },
             { path: 'tailwind', component: Tailwind, title: 'tailwind' },
+            {
+                path: 'post',
+                title: '博文',
+                component: PostPage,
+            },
             {
                 path: 'about',
                 title: 'About',

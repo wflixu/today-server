@@ -49,4 +49,11 @@ module.exports = app => {
   router.get('/api/upload', controller.upload.index)
   router.delete('/api/upload', controller.upload.removes)
   router.resources('upload', '/api/upload', controller.upload)
+
+  // post
+  router.post('/api/post', controller.post.create);
+  router.get('/api/post', controller.post.index);
+  router.delete('/api/post/:id', controller.post.destroy);
+  router.get('/api/post/:id', controller.post.show);
+  router.put('/api/post/:id', controller.post.update)
 };
