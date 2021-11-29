@@ -3,7 +3,6 @@
 'use strict';
 
 
-
 const path = require('path');
 
 /**
@@ -21,7 +20,7 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = [
-    'errorHandler'
+    'errorHandler',
   ];
 
   // add your user config here
@@ -29,13 +28,13 @@ module.exports = appInfo => {
     // myAppName: 'egg',
     mongoose: {
       client: {
-        url: 'mongodb://192.168.31.218:27017/today',
+        url: 'mongodb://127.0.0.1:27017/today',
         options: {
           autoReconnect: true,
         },
         // mongoose global plugins, expected a function or an array of function and options
         // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],
-        plugins: []
+        plugins: [],
       },
     },
     react: {
@@ -52,25 +51,25 @@ module.exports = appInfo => {
     security: {
       csrf: {
         enable: false,
-        ignoreJSON: true
+        ignoreJSON: true,
       },
       // domainWhiteList: ['http://localhost:3000']
     },
     multipart: {
-      fileExtensions: ['.apk', '.pptx', '.docx', '.csv', '.doc', '.ppt', '.pdf', '.pages', '.wav', '.mov'],
+      fileExtensions: [ '.apk', '.pptx', '.docx', '.csv', '.doc', '.ppt', '.pdf', '.pages', '.wav', '.mov' ],
     },
     bcrypt: {
-      saltRounds: 10 // default 10
+      saltRounds: 10, // default 10
     },
     cors: {
       origin: '*',
-      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
     },
     jwt: {
       secret: 'Great4-M',
       enable: true, // default is false
       match: '/jwt', // optional
-    }
+    },
 
   };
 
@@ -79,5 +78,4 @@ module.exports = appInfo => {
     ...userConfig,
   };
 };
-
 

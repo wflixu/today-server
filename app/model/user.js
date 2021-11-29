@@ -3,7 +3,7 @@ module.exports = (app) => {
   const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     username: { type: String, required: true },
-    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
+    role: { type: mongoose.Schema.Types.String, ref: "Role" },
     mobile: { type: String, required: false, default: "" },
     avatar: {
       type: String,
