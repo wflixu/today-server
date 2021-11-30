@@ -36,8 +36,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --port=443 --https.key=/home/ubuntu/docs/2_www.wflixu.cn.key --https.cert=/home/ubuntu/docs/1_www.wflixu.cn_bundle.crt --daemon --title=egg-server-today-server",
-    "stop": "egg-scripts stop --title=egg-server-today-server",
+    "start": "egg-scripts start  --https.key=/home/ubuntu/docs/2_www.wflixu.cn.key --https.cert=/home/ubuntu/docs/1_www.wflixu.cn_bundle.crt --daemon --title=egg-server-today",
+    "stop": "egg-scripts stop --title=egg-today-server",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
