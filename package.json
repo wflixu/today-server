@@ -36,7 +36,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start  --https.key=/home/ubuntu/docs/2_www.wflixu.cn.key --https.cert=/home/ubuntu/docs/1_www.wflixu.cn_bundle.crt --daemon --title=egg-server-today",
+    "start": "egg-scripts start  --https.key=/home/ubuntu/docs/wflixu.cn.key --https.cert=/home/ubuntu/docs/wflixu.cn_bundle.crt --daemon --title=egg-server-today",
     "stop": "egg-scripts stop --title=egg-today-server",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
@@ -45,10 +45,7 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod",
-    "vite": "vite",
-    "build": "vue-tsc --noEmit && vite build --base=/public/",
-    "serve": "vite preview"
+    "autod": "autod"
   },
   "ci": {
     "version": "10"
