@@ -7,6 +7,8 @@
     "declarations": true
   },
   "dependencies": {
+    "@jorgeferrero/stream-to-buffer": "^2.0.6",
+    "await-stream-ready": "^1.0.1",
     "egg": "^2.15.1",
     "egg-bcrypt": "^1.1.0",
     "egg-cors": "^2.2.3",
@@ -16,12 +18,12 @@
     "egg-validate": "^2.0.2",
     "egg-view-handlebars": "^2.0.1",
     "egg-view-react": "^1.1.0",
+    "file-type": "^16.5.3",
     "image-downloader": "^3.3.0",
     "moment": "^2.20.1",
+    "mongoose": "^5.12.3",
     "stream-to-array": "^2.3.0",
-    "stream-wormhole": "^1.0.3",
-    "await-stream-ready": "^1.0.1",
-    "mongoose": "^5.12.3"
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

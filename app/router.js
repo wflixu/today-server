@@ -45,6 +45,10 @@ module.exports = (app) => {
   router.delete("/api/user", controller.user.removes);
   router.resources("user", "/api/user", controller.user);
 
+  router.get('/api/chunk', controller.chunk.index);
+  router.post('/api/chunk', controller.chunk.create);
+  router.get('/api/chunk/:id', controller.chunk.show);
+
   // upload
   router.post("/api/upload", controller.upload.create);
   router.post("/api/upload/url", controller.upload.url);
