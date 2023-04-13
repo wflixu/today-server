@@ -28,10 +28,10 @@ export class ContainerLifeCycle {
   async onReady() {
     // add middleware
     this.app.useMiddleware([ReportMiddleware]);
-   
+
     // add filter
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
     // add Guard
-    this.app.useGuard(AuthGuard)
+    this.app.useGuard(AuthGuard);
   }
 }
