@@ -6,14 +6,19 @@ import { join } from 'path';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
-import { AuthGuard } from './guard/auth.guard';
+// import { AuthGuard } from './guard/auth.guard';
 import * as orm from '@midwayjs/typeorm';
+import * as passport from '@midwayjs/passport';
+import * as jwt from '@midwayjs/jwt';
+import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 
 @Configuration({
   imports: [
     koa,
     validate,
     orm,
+    jwt,
+    passport,
     {
       component: info,
       enabledEnvironment: ['local'],
@@ -27,11 +32,11 @@ export class ContainerLifeCycle {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware]);
+    this.app.useMiddleware([ReportMiddleware, JwtPassportMiddleware]);
 
     // add filter
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
     // add Guard
-    this.app.useGuard(AuthGuard);
+    // this.app.useGuard(AuthGuard);
   }
 }

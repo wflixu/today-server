@@ -6,6 +6,14 @@ export default {
   koa: {
     port: 8443,
   },
+  jwt: {
+    // secret: readFileSync('/Users/lixu/dev/wflixu.cn_nginx/wflixu.cn.key'), // fs.readFileSync('xxxxx.key')
+    secret: 'xxxxxxxxxxxxxx', // fs.readFileSync('xxxxx.key')
+    expiresIn: '2d',
+  },
+  passport: {
+    session: false,
+  },
   typeorm: {
     dataSource: {
       default: {
