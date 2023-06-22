@@ -3,15 +3,18 @@ import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
 import { join } from 'path';
-// import { DefaultErrorFilter } from './filter/default.filter';
-// import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
 // import { AuthGuard } from './guard/auth.guard';
 import * as orm from '@midwayjs/typeorm';
 import * as passport from '@midwayjs/passport';
 import * as jwt from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
-
+import * as crossDomain from '@midwayjs/cross-domain';
+import { FormatMiddleware } from './middleware/format.middleware';
+import { NotFoundFilter } from './filter/notfound.filter';
+import { DefaultErrorFilter } from './filter/default.filter';
+import { UnauthorizedErrorFilter } from './filter/unauthorize.filter';
+import * as tencenCloudSms from 'midway-tencent-cloud-sms'
 @Configuration({
   imports: [
     koa,
@@ -19,6 +22,8 @@ import { JwtPassportMiddleware } from './middleware/jwt.middleware';
     orm,
     jwt,
     passport,
+    crossDomain,
+    tencenCloudSms,
     {
       component: info,
       enabledEnvironment: ['local'],
@@ -32,10 +37,19 @@ export class ContainerLifeCycle {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware, JwtPassportMiddleware]);
-
+    this.app.useMiddleware([
+      FormatMiddleware,
+      ReportMiddleware,
+      JwtPassportMiddleware,
+    ]);
+    // 获取中间件的名字
+    // console.warn(this.app.getMiddleware().getNames());
     // add filter
-    // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
+    this.app.useFilter([
+      NotFoundFilter,
+      // UnauthorizedErrorFilter,
+      DefaultErrorFilter,
+    ]);
     // add Guard
     // this.app.useGuard(AuthGuard);
   }

@@ -1,5 +1,5 @@
 import { Provide } from '@midwayjs/core';
-import { User } from '../entity/user.entity';
+import { User } from '../entity/User';
 import { Repository } from 'typeorm';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 
@@ -12,7 +12,7 @@ export class UserService {
     const n = await this.userModel.save(user);
     return n;
   }
-  async findUserById(userId: string) {
+  async findUserById(userId: number) {
     const u = await this.userModel.findOne({ where: { id: userId } });
     return u;
   }

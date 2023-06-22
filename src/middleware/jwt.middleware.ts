@@ -1,17 +1,22 @@
-import { Context, Middleware } from '@midwayjs/core';
+import { Config, Middleware } from '@midwayjs/core';
 import { PassportMiddleware, AuthenticateOptions } from '@midwayjs/passport';
 import { JwtStrategy } from '../strategy/jwt.strategy';
+import { Context } from '@midwayjs/koa';
 
 @Middleware()
 export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
+  @Config('jwtPassport')
+  jwtPassportConfig: { ignore: string[]; [key: string]: any };
   getAuthenticateOptions(): Promise<AuthenticateOptions> | AuthenticateOptions {
     return {};
   }
 
-  // 配置忽略鉴权的路由地址
-  public match(ctx: Context): boolean {
-    // @ts-ignore
-    const ignore = ctx.path.indexOf('/passport/login') !== -1;
-    return !ignore;
+  public ignore(ctx: Context): boolean {
+    console.log(ctx.path, this.jwtPassportConfig.ignore)
+    return this.jwtPassportConfig.ignore.includes(ctx.path);
+  }
+
+  static getName(): string {
+    return 'jwtPassport';
   }
 }

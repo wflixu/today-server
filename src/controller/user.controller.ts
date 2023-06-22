@@ -10,7 +10,7 @@ import {
   Put,
 } from '@midwayjs/core';
 import { UserService } from '../service/user.service';
-import { User } from '../entity/user.entity';
+import { User } from '../entity/User';
 
 @Controller('/user')
 export class UserController {
@@ -28,7 +28,7 @@ export class UserController {
     return { success: true, message: 'OK', data: u };
   }
   @Put('/:id')
-  async updateUser(@Param('id') userId: string, @Body() user: Partial<User>) {
+  async updateUser(@Param('id') userId: number, @Body() user: Partial<User>) {
     console.warn('id:', userId);
     const u = await this.userService.findUserById(userId);
     if (!u) {
@@ -48,15 +48,15 @@ export class UserController {
     }
   }
   @Get('/:id')
-  async getUser(@Param('id') userId: string) {
-    console.warn('id:', userId.trim());
+  async getUser(@Param('id') userId: number) {
+    console.warn('id:', userId);
     const u = await this.userService.findUserById(userId);
     return { success: true, message: 'OK', data: u };
   }
 
   @Del('/:id')
-  async deleteUser(@Param('id') userId: string) {
-    const u = await this.userService.findUserById(userId.trim());
+  async deleteUser(@Param('id') userId: number) {
+    const u = await this.userService.findUserById(userId);
     if (!u) {
       return { success: false, message: 'user not exist', data: userId };
     }

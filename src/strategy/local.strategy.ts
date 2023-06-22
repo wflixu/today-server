@@ -3,7 +3,7 @@ import { Strategy } from 'passport-local';
 import { Repository } from 'typeorm';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 
-import { User } from '../entity/user.entity';
+import { User } from '../entity/User';
 import { Inject, httpError } from '@midwayjs/core';
 import { JwtService } from '@midwayjs/jwt';
 
@@ -18,18 +18,18 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
   async validate(username: string, password: string) {
     const user = await this.userModel.findOne({
       where: {
-        username,
+        name: username,
       },
     });
     if (!user) {
-      throw new httpError.ForbiddenError('用户明不存在');
+      throw new httpError.ForbiddenError('用户不存在');
     }
     if (password !== user.password) {
       throw new httpError.ForbiddenError('密码错误');
     }
 
     const token = await this.jwtService.sign({ username });
-    console.warn('---------ssss');
+
     return {
       username,
       token,
