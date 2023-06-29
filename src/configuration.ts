@@ -6,24 +6,28 @@ import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
 // import { AuthGuard } from './guard/auth.guard';
 import * as orm from '@midwayjs/typeorm';
-import * as passport from '@midwayjs/passport';
-import * as jwt from '@midwayjs/jwt';
-import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 import * as crossDomain from '@midwayjs/cross-domain';
 import { FormatMiddleware } from './middleware/format.middleware';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { UnauthorizedErrorFilter } from './filter/unauthorize.filter';
-import * as tencenCloudSms from 'midway-tencent-cloud-sms'
+import * as tencenCloudSms from 'midway-tencent-cloud-sms';
+import * as dotenv from 'dotenv';
+import * as passport from '@midwayjs/passport';
+import * as jwt from '@midwayjs/jwt';
+import { JwtPassportMiddleware } from './middleware/jwt.middleware';
+
+dotenv.config();
+
 @Configuration({
   imports: [
     koa,
     validate,
     orm,
-    jwt,
-    passport,
     crossDomain,
     tencenCloudSms,
+    jwt,
+    passport,
     {
       component: info,
       enabledEnvironment: ['local'],
@@ -47,7 +51,7 @@ export class ContainerLifeCycle {
     // add filter
     this.app.useFilter([
       NotFoundFilter,
-      // UnauthorizedErrorFilter,
+      UnauthorizedErrorFilter,
       DefaultErrorFilter,
     ]);
     // add Guard

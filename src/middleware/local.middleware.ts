@@ -7,7 +7,7 @@ export class LocalPassportMiddleware extends PassportMiddleware(LocalStrategy) {
   // 设置 AuthenticateOptions
   getAuthenticateOptions(): Promise<AuthenticateOptions> | AuthenticateOptions {
     return {
-      failureRedirect: '/login',
+      failureRedirect: '/passport/login',
     };
   }
 }

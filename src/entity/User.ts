@@ -1,19 +1,12 @@
-import {
-  Column,
-  Index,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRole } from './UserRole';
 
-// @Index("_copy_4", ["id"], { unique: true })
-@Entity('user', { schema: 'public' })
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id: number;
 
-  @Column('smallint', { name: 'state', nullable: true })
+  @Column('smallint', { name: 'state', nullable: false, default: 0 })
   state: number | null;
 
   @Column('character varying', { name: 'name', nullable: true, length: 255 })
@@ -22,23 +15,37 @@ export class User {
   @Column('character varying', { name: 'img_url', nullable: true, length: 255 })
   imgUrl: string | null;
 
-  @Column('character varying', { name: 'mobile', nullable: true, length: 11 })
-  mobile: string | null;
+  @Column('character varying', { name: 'phone', nullable: true, length: 11 })
+  phone: string | null;
 
-  @Column('character varying', { name: 'salt', nullable: true, length: 64 })
-  salt: string | null;
-
-  @Column('character varying', { name: 'password', nullable: true, length: 64 })
+  @Column('character varying', {
+    name: 'password',
+    nullable: true,
+    length: 64,
+    select: false,
+  })
   password: string | null;
 
-  @Column('timestamp without time zone', { name: 'created', nullable: true })
-  created: Date | null;
+  @Column('character varying', {
+    name: 'salt',
+    nullable: true,
+    length: 64,
+    select: false,
+  })
+  salt: string | null;
+
+  @Column({
+    type: 'timestamp',
+  })
+  created: Date;
 
   @Column('character varying', { name: 'creator', nullable: true, length: 32 })
   creator: string | null;
 
-  @Column('timestamp without time zone', { name: 'edited', nullable: true })
-  edited: Date | null;
+  @Column({
+    type: 'timestamp',
+  })
+  edited: Date;
 
   @Column('character varying', { name: 'editor', nullable: true, length: 32 })
   editor: string | null;

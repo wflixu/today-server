@@ -27,6 +27,11 @@ export class UserController {
     console.warn('u:', u);
     return { success: true, message: 'OK', data: u };
   }
+  @Get('/')
+  async getUsers() {
+    const users = await this.userService.list();
+    return users;
+  }
   @Put('/:id')
   async updateUser(@Param('id') userId: number, @Body() user: Partial<User>) {
     console.warn('id:', userId);

@@ -19,19 +19,15 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     const user = await this.userModel.findOne({
       where: {
         name: username,
+        password,
       },
     });
     if (!user) {
-      throw new httpError.ForbiddenError('用户不存在');
+      throw new httpError.ForbiddenError('用户不存在或密码错误');
     }
-    if (password !== user.password) {
-      throw new httpError.ForbiddenError('密码错误');
-    }
-
     const token = await this.jwtService.sign({ username });
-
     return {
-      username,
+      user,
       token,
     };
   }

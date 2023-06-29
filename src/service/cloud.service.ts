@@ -4,13 +4,9 @@ import {
   Init,
   Inject,
   Provide,
-  Scope,
-  ScopeEnum,
   Singleton,
 } from '@midwayjs/core';
-import { User } from '../entity/User';
-import { Repository } from 'typeorm';
-import { InjectEntityModel } from '@midwayjs/typeorm';
+
 import { Context } from '@midwayjs/koa';
 import { Client } from 'tencentcloud-sdk-nodejs-sms/tencentcloud/services/sms/v20210111/sms_client';
 

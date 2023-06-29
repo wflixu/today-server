@@ -21,8 +21,8 @@ export default {
     ignore: ['/passport/login', '/passport/sms', 'passport/sign'],
   },
   tencentCloudSms: {
-    secretId: '',
-    secretKey: '',
+    secretId: process.env.secretId,
+    secretKey: process.env.secretKey,
     region: 'ap-beijing',
     SmsSdkAppId: '1400812827',
     TemplateId: '1774293',
@@ -38,7 +38,7 @@ export default {
         password: '123',
         database: 'today',
         synchronize: false, // 如果第一次使用，不存在表，有同步的需求可以写 true，注意会丢数据
-        logging: false,
+        logging: true,
         entities: ['**/entity/*{.ts,.js}'],
       },
     },

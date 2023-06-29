@@ -9,11 +9,15 @@ export class FormatMiddleware implements IMiddleware<Context, NextFunction> {
       if (result === null) {
         ctx.status = 200;
       }
-      return {
-        code: 0,
-        msg: 'OK',
-        data: result,
-      };
+      if (result?.code && result?.msg) {
+        return result;
+      } else {
+        return {
+          code: 200,
+          msg: 'OK',
+          data: result,
+        };
+      }
     };
   }
 }
