@@ -4,12 +4,12 @@ midway.js
 
 主要技术栈为：
 
-| 名称                | 版本  | 名称        | 版本  |
-| ------------------- | ----- | ----------- | ----- |
-| midway.js           | 3.0.x | TypeScript4 | 4.8.x |
-| postgresql          | 14.x  | typeorm     | 0.3.x |
-| node                | 18.x  | typeorm     | 0.3.x |
-| 详见 `package.json` | 😁    | 🥰          | 🤗    |
+| 名称                | 版本  | 名称       | 版本  |
+| ------------------- | ----- | ---------- | ----- |
+| midway.js           | 3.0.x | TypeScript | 4.8.x |
+| postgresql          | 14.x  | typeorm    | 0.3.x |
+| node                | 18.x  |            |       |
+| 详见 `package.json` | 😁    | 🥰         | 🤗    |
 
 ## QuickStart
 
@@ -28,7 +28,8 @@ $ open http://localhost:7001/
 ### Deploy
 
 ```bash
-$ npm start
+$ npm run build
+$  npm start
 
 pm2 start ./bootstrap.js --name today_server
 

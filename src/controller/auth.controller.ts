@@ -100,6 +100,7 @@ export class AuthController {
       code.toString(),
       phone
     );
+    console.warn(SendStatusSet);
     if (SendStatusSet[0].Code === 'Ok') {
       await this.authService.addPhoneCode(phone, code, ip);
       return 2;

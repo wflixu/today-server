@@ -12,7 +12,6 @@ export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
   }
 
   public ignore(ctx: Context): boolean {
-    console.log(ctx.path, this.jwtPassportConfig.ignore);
     return this.jwtPassportConfig.ignore.includes(ctx.path);
   }
 

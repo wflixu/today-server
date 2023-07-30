@@ -25,7 +25,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     if (!user) {
       throw new httpError.ForbiddenError('用户不存在或密码错误');
     }
-    const token = await this.jwtService.sign({ username });
+    const token = await this.jwtService.sign({ username, id: user.id });
     return {
       user,
       token,

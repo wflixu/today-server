@@ -1,0 +1,88 @@
+import {
+  ContentType,
+  Controller,
+  Del,
+  Fields,
+  Files,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+} from '@midwayjs/core';
+import { ChunkService } from '../service/chunk.service';
+import { Chunk } from '../entity/Chunk';
+import { Context } from '@midwayjs/koa';
+import { createReadStream } from 'fs';
+import { stat, access } from 'node:fs/promises';
+import { resolve } from 'path';
+import { F_OK } from 'node:constants';
+import { copyFile } from 'fs/promises';
+
+import { UPLOAD_DIR } from '../constant';
+
+@Controller('/chunk')
+export class ChunkController {
+  @Inject()
+  ctx: Context;
+  @Inject()
+  chunkService: ChunkService;
+
+  @Post('/upload')
+  async upload(@Files() files, @Fields() fields) {
+    for (const file of files) {
+      const dest = resolve(UPLOAD_DIR, file.data.split('/').pop());
+      await copyFile(resolve(file.data), dest);
+      file.data = dest;
+      await this.chunkService.addChunk(file as unknown as Chunk);
+    }
+    return {
+      user: this.ctx.state.user,
+      files,
+      fields,
+    };
+  }
+  @Get('/show')
+  async showChunk(@Query('id') id: number) {
+    const chunk = await this.chunkService.getChunk(id);
+    if (chunk.data) {
+      this.ctx.type = chunk.mimeType;
+      this.ctx.body = createReadStream(resolve(chunk.data));
+    }
+  }
+  @Get('/down')
+  async downloadChunk(@Query('id') id: number) {
+    const chunk = await this.chunkService.getChunk(id);
+    if (chunk.data) {
+      this.ctx.type = chunk.mimeType;
+      this.ctx.set(
+        'Content-Disposition',
+        `attachment; filename=${chunk.filename}`
+      );
+      this.ctx.body = createReadStream(resolve(chunk.data));
+    }
+  }
+  @Del('/:id')
+  async delChunk(@Param('id') id: number) {
+    const chunk = await this.chunkService.getChunk(id);
+    if (chunk.data) {
+      await this.chunkService.delChunkAndFile(chunk);
+    }
+  }
+  @Get('/check')
+  async check() {
+    const chunks = await this.chunkService.getChunks();
+    const ids = [];
+    chunks.forEach(async chunk => {
+      try {
+        await access(resolve(chunk.data), F_OK);
+      } catch (error) {
+        await this.chunkService.delChunk(chunk);
+        ids.push(chunk.id);
+        console.log('error', error);
+      }
+    });
+
+    return ids;
+  }
+}

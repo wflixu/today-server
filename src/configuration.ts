@@ -16,6 +16,7 @@ import * as dotenv from 'dotenv';
 import * as passport from '@midwayjs/passport';
 import * as jwt from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
+import * as upload from '@midwayjs/upload';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ dotenv.config();
     crossDomain,
     tencenCloudSms,
     jwt,
+    upload,
     passport,
     {
       component: info,
