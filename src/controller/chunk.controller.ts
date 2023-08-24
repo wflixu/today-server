@@ -68,6 +68,7 @@ export class ChunkController {
     if (chunk.data) {
       await this.chunkService.delChunkAndFile(chunk);
     }
+    return chunk;
   }
   @Get('/check')
   async check() {
@@ -84,5 +85,25 @@ export class ChunkController {
     });
 
     return ids;
+  }
+  @Get('/list')
+  async list() {
+    const chunks = await this.chunkService.getUserChunks();
+    return chunks.map(item => {
+      const { userId, data, ...rest } = item;
+      return rest;
+    });
+  }
+  @Get('/imgs')
+  async imglist() {
+    const chunks = await this.chunkService.getUserChunks();
+    return chunks
+      .filter(item => {
+        return item.mimeType.startsWith('image/');
+      })
+      .map(item => {
+        const { userId, data, ...rest } = item;
+        return rest;
+      });
   }
 }

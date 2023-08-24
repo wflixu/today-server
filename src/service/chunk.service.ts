@@ -26,6 +26,12 @@ export class ChunkService {
   async getChunks() {
     return this.chunkModel.findBy({});
   }
+  async getUserChunks() {
+    const userId: number = this.ctx.state.user?.id ?? 22;
+    return this.chunkModel.findBy({
+      userId,
+    });
+  }
   async delChunk(chunk: Chunk) {
     return this.chunkModel.remove(chunk);
   }
