@@ -28,8 +28,6 @@ export default {
       '/passport/sign',
       '/chunk/show',
       '/chunk/down',
-      '/foo',
-      '/bar',
     ],
   },
   tencentCloudSms: {

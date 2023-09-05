@@ -16,7 +16,7 @@ import { User } from '../entity/User';
 export class UserController {
   @Inject()
   ctx: Context;
-
+  
   @Inject()
   userService: UserService;
 

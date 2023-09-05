@@ -1,17 +1,20 @@
-import { Controller, Get, Redirect } from '@midwayjs/core';
+import { Controller, Get, Inject, Redirect } from '@midwayjs/core';
+import { Context } from '@midwayjs/koa';
 
 @Controller('/')
 export class HomeController {
+  @Inject()
+  ctx: Context;
+
   @Get('/')
   async home(): Promise<string> {
     return 'Hello Midwayjs!';
   }
 
   @Get('/foo')
-  @Redirect('/bar', 302)
   async foo() {
     // TODO
-    return 'foo';
+    return this.ctx.state.user;
   }
   @Get('/bar')
   async bar() {

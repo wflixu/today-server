@@ -18,6 +18,7 @@ import * as jwt from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 import * as upload from '@midwayjs/upload';
 
+
 dotenv.config();
 
 @Configuration({
@@ -45,8 +46,8 @@ export class ContainerLifeCycle {
     // add middleware
     this.app.useMiddleware([
       FormatMiddleware,
-      ReportMiddleware,
       JwtPassportMiddleware,
+      ReportMiddleware,
     ]);
     // 获取中间件的名字
     // console.warn(this.app.getMiddleware().getNames());
