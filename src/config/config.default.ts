@@ -13,6 +13,7 @@ export default {
   cors: {
     credentials: false,
     origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH, OPTIONS',
   },
   jwt: {
     // secret: readFileSync('/Users/lixu/dev/wflixu.cn_nginx/wflixu.cn.key'), // fs.readFileSync('xxxxx.key')
