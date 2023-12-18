@@ -96,16 +96,16 @@ export class AuthController {
     }
 
     const code = _.random(100000, 999999);
-    const { SendStatusSet } = await this.smsService.sendSms(
-      code.toString(),
-      phone
-    );
-    console.warn(SendStatusSet);
-    if (SendStatusSet[0].Code === 'Ok') {
-      await this.authService.addPhoneCode(phone, code, ip);
-      return 2;
-    } else {
-      return 3;
-    }
+    // const { SendStatusSet } = await this.smsService.sendSms(
+    //   code.toString(),
+    //   phone
+    // );
+    // console.warn(SendStatusSet);
+    // if (SendStatusSet[0].Code === 'Ok') {
+    await this.authService.addPhoneCode(phone, code, ip);
+    return code;
+    // } else {
+    //   return 3;
+    // }
   }
 }

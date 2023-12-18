@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Redirect } from '@midwayjs/core';
+import { Body, Controller, Get, Headers, Inject, Post, Redirect } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 
 @Controller('/')
@@ -8,7 +8,16 @@ export class HomeController {
 
   @Get('/')
   async home(): Promise<string> {
-    return 'Hello Midwayjs!';
+    return 'home';
+  }
+  @Get('/ping')
+  async ping(@Headers() headers): Promise<string> {
+    console.log(headers);
+    return 'ping success !';
+  }
+  @Post('/ping')
+  async pingup(@Body() body) {
+    return body;
   }
 
   @Get('/foo')
