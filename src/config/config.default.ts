@@ -12,6 +12,7 @@ export default {
   },
   cors: {
     credentials: false,
+    origin: '*',
   },
   jwt: {
     // secret: readFileSync('/Users/lixu/dev/wflixu.cn_nginx/wflixu.cn.key'), // fs.readFileSync('xxxxx.key')
@@ -29,7 +30,7 @@ export default {
       '/chunk/show',
       '/chunk/down',
       '/user',
-      '/ping'
+      '/ping',
     ],
   },
   tencentCloudSms: {

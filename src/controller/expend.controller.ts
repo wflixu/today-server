@@ -6,6 +6,7 @@ import {
   Inject,
   Param,
   Post,
+  Query,
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../service/user.service';
@@ -20,11 +21,26 @@ export class ExpendController {
   @Inject()
   expenditureService: ExpenditureService;
 
+  @Post('/')
+  async addExpend(@Body('count') count: number, @Body('kind') kind: number) {
+    const result = await this.expenditureService.addExpend(count, kind);
+    return result;
+  }
+  @Get('/')
+  async getList(@Query('kind') kind: number) {
+    return await this.expenditureService.getExpendList(kind);
+  }
+  @Del('/:id')
+  async delExpend(@Param('id') id: number) {
+    return await this.expenditureService.delGasRecord(id);
+  }
+
   @Post('/gas')
   async recordGas(@Body('count') count: number) {
     const result = await this.expenditureService.addGasRecord(count);
     return result;
   }
+
   @Get('/gas')
   async getGasList() {
     return await this.expenditureService.getGasList();

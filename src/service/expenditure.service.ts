@@ -12,6 +12,12 @@ export class ExpenditureService {
   @InjectEntityModel(Expenditure)
   expenditureModel: Repository<Expenditure>;
 
+  async addExpend(count: number, kind: number) {
+    const userId = this.ctx.state.user?.id;
+    const record = this.expenditureModel.create({ count, userId, kind });
+    await this.expenditureModel.save(record);
+    return record;
+  }
   async addGasRecord(count: number) {
     const userId = this.ctx.state.user?.id;
     const record = this.expenditureModel.create({ count, userId });
@@ -30,5 +36,9 @@ export class ExpenditureService {
   async getGasList() {
     const userId = this.ctx.state.user.id;
     return await this.expenditureModel.findBy({ userId });
+  }
+  async getExpendList(kind) {
+    const userId = this.ctx.state.user.id;
+    return await this.expenditureModel.findBy({ userId, kind });
   }
 }
