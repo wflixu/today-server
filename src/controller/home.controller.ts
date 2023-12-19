@@ -20,8 +20,11 @@ export class HomeController {
     return 'home';
   }
   @Get('/ping')
-  async ping(@RequestIP() ip: string): Promise<string> {
-    return ip;
+  async ping(@RequestIP() ip: string, @Headers() headers): Promise<any> {
+    return {
+      ip,
+      rip: headers['X-Real-IP'] ?? 'none',
+    };
   }
   @Post('/ping')
   async pingup(@Body() body) {
