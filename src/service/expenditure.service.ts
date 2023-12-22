@@ -39,6 +39,12 @@ export class ExpenditureService {
   }
   async getExpendList(kind) {
     const userId = this.ctx.state.user.id;
-    return await this.expenditureModel.findBy({ userId, kind });
+    const res = await this.expenditureModel.findBy({ userId, kind });
+    return res.map(item => {
+      return {
+        ...item,
+        count: Number(item.count),
+      };
+    });
   }
 }

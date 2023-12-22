@@ -5,7 +5,7 @@ export class Expenditure {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id: number;
 
-  @Column('int4')
+  @Column('numeric', { precision: 5, scale: 2 })
   count: number;
 
   @Column('int2', { default: 1 })
