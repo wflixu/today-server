@@ -1,5 +1,5 @@
 import { MidwayConfig } from '@midwayjs/core';
-import { uploadWhiteList } from '@midwayjs/upload';
+import { DefaultUploadFileMimeType, uploadWhiteList } from '@midwayjs/upload';
 import { tmpdir, homedir } from 'node:os';
 import { join } from 'node:path';
 
@@ -28,6 +28,7 @@ export default {
       '/passport/login',
       '/passport/sms',
       '/passport/sign',
+      '/release/',
       '/chunk/show',
       '/chunk/down',
       '/user',
@@ -63,7 +64,8 @@ export default {
     // fileSize: string, 最大上传文件大小，默认为 10mb
     fileSize: '10mb',
     // whitelist: string[]，文件扩展名白名单
-    whitelist: uploadWhiteList.filter(ext => true),
+    whitelist: uploadWhiteList,
+    mimeTypeWhiteList: DefaultUploadFileMimeType,
     // tmpdir: string，上传的文件临时存储路径
     tmpdir: join(tmpdir(), 'midway-upload-files'),
     // cleanTimeout: number，上传的文件在临时目录中多久之后自动删除，默认为 5 分钟
@@ -74,6 +76,6 @@ export default {
     match: /\/chunk\/upload/,
   },
   resultFormat: {
-    ignore: ['/chunk/show', '/chunk/down'],
+    ignore: ['/chunk/show', '/chunk/down', '/release/'],
   },
 } as MidwayConfig;
