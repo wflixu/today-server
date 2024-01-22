@@ -33,6 +33,7 @@ export default {
       '/chunk/down',
       '/user',
       '/ping',
+      '/ip',
     ],
   },
   tencentCloudSms: {
@@ -77,5 +78,9 @@ export default {
   },
   resultFormat: {
     ignore: ['/chunk/show', '/chunk/down', '/release/'],
+  },
+  // 当个ip 最大访问现在
+  ipBan: {
+    maxTimes: 10000,
   },
 } as MidwayConfig;
