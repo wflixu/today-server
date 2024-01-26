@@ -31,6 +31,7 @@ export default {
       '/release/',
       '/chunk/show',
       '/chunk/down',
+      '/chunk/imgs',
       '/user',
       '/ping',
       '/ip',
