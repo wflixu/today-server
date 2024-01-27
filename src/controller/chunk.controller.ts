@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Query,
+  SetHeader,
 } from '@midwayjs/core';
 import { ChunkService } from '../service/chunk.service';
 import { Chunk } from '../entity/Chunk';
@@ -43,6 +44,10 @@ export class ChunkController {
     };
   }
   @Get('/show')
+  @SetHeader({
+    'Cache-Control': 'public, max-age=864000',
+    Expires: 'Sun, 24 Oct 2034 10:00:00 GMT',
+  })
   async showChunk(@Query('id') id: number) {
     const chunk = await this.chunkService.getChunk(id);
     if (chunk.data) {
