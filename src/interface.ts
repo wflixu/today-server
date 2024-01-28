@@ -13,3 +13,9 @@ export interface IConnection {
   username: string;
   password: string;
 }
+
+export interface IPagination {
+  total?: number;
+  current: number;
+  pageSize: number;
+}

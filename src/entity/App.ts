@@ -15,19 +15,14 @@ export class App {
   @Column('character varying', { name: 'name' })
   name: string;
 
-  @Column('character varying', { name: 'version' })
+  @Column('character varying', { name: 'version', default: '' })
   version: string;
 
-  @Column('character varying', { name: 'notes' })
+  @Column('character varying', { name: 'notes', default: '' })
   notes: string;
 
-  @Column('timestamp with time zone', { name: 'pub_date' })
-  pub_date: Date;
-
-  @Column('character varying', { name: 'signature', length: 1024 })
-  signature: string;
-  @Column('int4', { name: 'file_id' })
-  file_id: number;
+  @Column('timestamp without time zone', { name: 'date', default: new Date() })
+  date: Date;
 
   @OneToOne(type => Chunk)
   @JoinColumn({ name: 'file_id', referencedColumnName: 'id' })

@@ -37,8 +37,10 @@ export class ChunkService {
   }
 
   async delChunkAndFile(chunk: Chunk) {
-    await this.chunkModel.delete(chunk.id);
-    await rm(resolve(chunk.data));
+    await this.chunkModel.remove(chunk);
+    await rm(resolve(chunk.data), {
+      force: true,
+    });
     return;
   }
 }

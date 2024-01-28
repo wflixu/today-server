@@ -33,6 +33,7 @@ export class ChunkController {
   async upload(@Files() files, @Fields() fields) {
     for (const file of files) {
       const dest = resolve(UPLOAD_DIR, file.data.split('/').pop());
+      console.warn(file);
       await copyFile(resolve(file.data), dest);
       file.data = dest;
       await this.chunkService.addChunk(file as unknown as Chunk);
@@ -46,7 +47,6 @@ export class ChunkController {
   @Get('/show')
   @SetHeader({
     'Cache-Control': 'public, max-age=864000',
-    Expires: 'Sun, 24 Oct 2034 10:00:00 GMT',
   })
   async showChunk(@Query('id') id: number) {
     const chunk = await this.chunkService.getChunk(id);
@@ -70,6 +70,7 @@ export class ChunkController {
   @Del('/:id')
   async delChunk(@Param('id') id: number) {
     const chunk = await this.chunkService.getChunk(id);
+    console.warn(chunk);
     if (chunk.data) {
       await this.chunkService.delChunkAndFile(chunk);
     }

@@ -2,7 +2,6 @@ import { MidwayConfig } from '@midwayjs/core';
 import { DefaultUploadFileMimeType, uploadWhiteList } from '@midwayjs/upload';
 import { tmpdir, homedir } from 'node:os';
 import { join } from 'node:path';
-
 export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1681179064355_5949',
@@ -66,8 +65,9 @@ export default {
     // fileSize: string, 最大上传文件大小，默认为 10mb
     fileSize: '10mb',
     // whitelist: string[]，文件扩展名白名单
-    whitelist: uploadWhiteList,
-    mimeTypeWhiteList: DefaultUploadFileMimeType,
+    whitelist: [...uploadWhiteList, '.json'],
+    // eslint-disable-next-line prettier/prettier
+    mimeTypeWhiteList: null,
     // tmpdir: string，上传的文件临时存储路径
     tmpdir: join(tmpdir(), 'midway-upload-files'),
     // cleanTimeout: number，上传的文件在临时目录中多久之后自动删除，默认为 5 分钟
@@ -78,7 +78,7 @@ export default {
     match: /\/chunk\/upload/,
   },
   resultFormat: {
-    ignore: ['/chunk/show', '/chunk/down', '/release/'],
+    ignore: ['/chunk/show', '/chunk/down', '/release/update'],
   },
   // 当个ip 最大访问现在
   ipBan: {
