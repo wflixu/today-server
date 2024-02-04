@@ -35,7 +35,7 @@ export class ExpenditureService {
   }
   async getGasList() {
     const userId = this.ctx.state.user.id;
-    return await this.expenditureModel.findBy({ userId });
+    return await this.expenditureModel.findBy({ userId, kind: 1 });
   }
   async getExpendList(kind) {
     const userId = this.ctx.state.user.id;
