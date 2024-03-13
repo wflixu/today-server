@@ -17,7 +17,8 @@ export class ChunkService {
   async addChunk(pc: Chunk) {
     const userId = this.ctx.state.user?.id ?? 22;
     const chunk = this.chunkModel.create({ userId, ...pc });
-    return this.chunkModel.save(chunk);
+    await this.chunkModel.save(chunk);
+    return chunk;
   }
   async getChunk(id: number) {
     return this.chunkModel.findOneBy({ id });
@@ -27,7 +28,8 @@ export class ChunkService {
     return this.chunkModel.findBy({});
   }
   async getUserChunks() {
-    const userId: number = this.ctx.state.user?.id ?? 22;
+    const userId: number = this.ctx.state.user?.id ?? 1;
+    console.warn(userId, '---useid'.repeat(20));
     return this.chunkModel.findBy({
       userId,
     });

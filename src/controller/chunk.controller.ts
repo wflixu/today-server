@@ -31,18 +31,33 @@ export class ChunkController {
 
   @Post('/upload')
   async upload(@Files() files, @Fields() fields) {
+    console.warn(files, fields);
+    const chunks = [];
+    if (files.length !== 1) {
+      return;
+    }
+    const file = files[0];
+
+    const dest = resolve(UPLOAD_DIR, file.data.split('/').pop());
+    console.warn(file);
+    await copyFile(resolve(file.data), dest);
+    file.data = dest;
+    const chunk = await this.chunkService.addChunk(file as unknown as Chunk);
+    return chunk;
+  }
+  @Post('/upload/all')
+  async uploadAll(@Files() files, @Fields() fields) {
+    console.warn(files, fields);
+    const chunks = [];
     for (const file of files) {
       const dest = resolve(UPLOAD_DIR, file.data.split('/').pop());
       console.warn(file);
       await copyFile(resolve(file.data), dest);
       file.data = dest;
-      await this.chunkService.addChunk(file as unknown as Chunk);
+      const chunk = await this.chunkService.addChunk(file as unknown as Chunk);
+      chunks.push(chunk);
     }
-    return {
-      user: this.ctx.state.user,
-      files,
-      fields,
-    };
+    return chunks;
   }
   @Get('/show')
   @SetHeader({
