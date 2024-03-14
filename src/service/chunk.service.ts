@@ -34,6 +34,11 @@ export class ChunkService {
       userId,
     });
   }
+  async getWallPaperImages() {
+    return this.chunkModel.findBy({
+      fieldName: 'paper',
+    });
+  }
   async delChunk(chunk: Chunk) {
     return this.chunkModel.remove(chunk);
   }

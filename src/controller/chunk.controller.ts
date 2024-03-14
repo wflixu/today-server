@@ -117,7 +117,7 @@ export class ChunkController {
   }
   @Get('/imgs')
   async imglist() {
-    const chunks = await this.chunkService.getUserChunks();
+    const chunks = await this.chunkService.getWallPaperImages();
     return chunks
       .filter(item => {
         return item.mimeType.startsWith('image/');
