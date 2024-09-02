@@ -62,6 +62,7 @@ export class ChunkController {
   @Get('/show')
   @SetHeader({
     'Cache-Control': 'public, max-age=864000',
+    'Content-Disposition': 'inline',
   })
   async showChunk(@Query('id') id: number) {
     const chunk = await this.chunkService.getChunk(id);
@@ -115,6 +116,7 @@ export class ChunkController {
       return rest;
     });
   }
+  // 获取壁纸列表
   @Get('/imgs')
   async imglist() {
     const chunks = await this.chunkService.getWallPaperImages();
