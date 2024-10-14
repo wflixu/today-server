@@ -49,7 +49,7 @@ export default {
       default: {
         type: 'postgres',
         host: '127.0.0.1',
-        port: 5432,
+        port: 5436,
         username: 'postgres',
         password: '123',
         database: 'today',
