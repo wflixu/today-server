@@ -33,6 +33,7 @@ export default {
       '/chunk/imgs',
       '/user',
       '/ping',
+      '/wallpaper',
       '/ip',
     ],
   },
@@ -78,7 +79,7 @@ export default {
     match: /\/chunk\/upload/,
   },
   resultFormat: {
-    ignore: ['/chunk/show', '/chunk/down', '/release/update'],
+    ignore: ['/chunk/show', '/chunk/down', '/release/update', '/wallpaper'],
   },
   // 当个ip 最大访问现在
   ipBan: {
