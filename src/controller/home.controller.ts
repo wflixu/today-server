@@ -15,7 +15,8 @@ import { resolve } from 'node:path';
 import { UPLOAD_DIR } from '../constant';
 import { Chunk } from '../entity/Chunk';
 import { writeFile } from 'node:fs/promises';
-import { createReadStream } from 'node:fs';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { getNow } from '../utils/datetime';
 
 @Controller('/')
 export class HomeController {
@@ -44,24 +45,26 @@ export class HomeController {
 
 
   @Get('/wallpaper/:date/:lang/:mode')
+  @Get('/wallpaper')
   @SetHeader({
     'Cache-Control': 'public, max-age=360000',
     'Content-Type': 'image/jpeg',
     'Content-Disposition': 'inline',
   })
-  async wallpaper(@Param('date') dateStr: string = new Date().toLocaleDateString(),
+  async wallpaper(@Param('date') dateStr: string = getNow(),
     @Param('lang') lang: 'zh-ch' | 'en-us' | 'en-gb' = 'zh-ch',
     @Param('mode') mode: 'UHD' | 'FHD' | 'MBL' | 'MAK' = 'FHD') {
     let wpURL = `https://dailybing.com/api/v1/${dateStr}/${lang}/${mode}`
     const chunk = await this.homeService.getURLChunk(wpURL)
 
     if (chunk?.id) {
-      console.warn("used cached chunk", chunk)
+      // this.ctx.logger.warn("used cached chunk", chunk)
       this.ctx.type = chunk.mimeType;
       this.ctx.body = createReadStream(resolve(chunk.data));
     } else {
-      let firstRes = await fetch(`https://dailybing.com/api/v1/${dateStr}/${lang}/${mode}`)
-      console.warn(firstRes)
+      const firstUrl = dateStr === getNow() ? `https://dailybing.com/api/v1` : wpURL
+      let firstRes = await fetch(firstUrl)
+
       if (firstRes.status === 200) {
         const realFetch = await fetch(firstRes.url, {
           method: 'GET',
@@ -72,15 +75,13 @@ export class HomeController {
         if (!realFetch.ok) {
           return this.ctx.body = 'fetch failed';
         }
-        console.warn(realFetch.status)
+        this.ctx.set('Content-Type', realFetch.headers.get('Content-Type'));
+        this.ctx.set('Content-Length', realFetch.headers.get('Content-Length'));
 
         const buffer = Buffer.from(await realFetch.arrayBuffer());
-        this.ctx.set('Content-Type', 'image/jpeg');
-        // this.ctx.set('Cache-Control', 'public, max-age=0');
-        this.ctx.set('Content-Length', buffer.length.toString());
         let filename = Date.now().toString() + firstRes.url.split('=').pop();
         const dest = resolve(UPLOAD_DIR, filename);
-        console.warn(dest)
+
         await writeFile(dest, buffer, 'binary');
         let chunk = await this.homeService.addChunk({ filename, mimeType: 'image/jpeg', fieldName: 'paper', data: dest } as Chunk)
         let urlchunk = await this.homeService.addURLChunk(wpURL, chunk)

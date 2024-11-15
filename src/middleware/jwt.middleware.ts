@@ -16,7 +16,6 @@ export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
       // console.warn('ignore', cur, ctx.path);
       return prev || ctx.path.startsWith(cur);
     }, false);
-    console.warn('ignore result', res);
     return res;
   }
 
