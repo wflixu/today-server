@@ -79,7 +79,7 @@ export class HomeController {
         this.ctx.set('Content-Length', fetchImage.headers.get('Content-Length'));
 
         const buffer = Buffer.from(await fetchImage.arrayBuffer());
-        let filename = dateStr + '_' + fetchImage.url.split('/').pop();
+        let filename = `${dateStr}_${mode}_` + fetchImage.url.split('/').pop();
         const dest = resolve(UPLOAD_DIR, filename);
 
         await writeFile(dest, buffer, 'binary');
