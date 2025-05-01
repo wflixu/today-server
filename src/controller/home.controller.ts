@@ -74,7 +74,7 @@ export class HomeController {
 
       if (fetchImage.status === 200) {
 
-        this.ctx.logger.warn("---fetch wallpaper", fetchImage)
+        this.ctx.logger.info("---fetch wallpaper", fetchImage)
         this.ctx.set('Content-Type', fetchImage.headers.get('Content-Type'));
         this.ctx.set('Content-Length', fetchImage.headers.get('Content-Length'));
 
@@ -88,6 +88,7 @@ export class HomeController {
         this.ctx.body = buffer;
         this.ctx.status = 200;
       } else {
+        this.ctx.logger.warn("fetch wallpaper failed", fetchImage)
         this.ctx.status = 500;
       }
     }
