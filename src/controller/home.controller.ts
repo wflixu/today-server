@@ -59,29 +59,27 @@ export class HomeController {
     const chunk = await this.homeService.getURLChunk(wpURL)
 
     if (chunk?.id) {
-      // this.ctx.logger.warn("used cached chunk", chunk)
+      this.ctx.logger.info("used cached chunk", chunk)
       this.ctx.type = chunk.mimeType;
       this.ctx.set("Cache-Control", "public, max-age=360000");
       this.ctx.body = createReadStream(resolve(chunk.data));
     } else {
-      const firstUrl = dateStr === getNow() ? `https://dailybing.com/api/v1` : wpURL
-      let firstRes = await fetch(firstUrl)
-
-      if (firstRes.status === 200) {
-        const realFetch = await fetch(firstRes.url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'image/*'
-          }
-        })
-        if (!realFetch.ok) {
-          return this.ctx.body = 'fetch failed';
+      this.ctx.logger.info("no caced, get new image ,start ...", chunk)
+      let fetchImage = await fetch(wpURL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'image/*'
         }
-        this.ctx.set('Content-Type', realFetch.headers.get('Content-Type'));
-        this.ctx.set('Content-Length', realFetch.headers.get('Content-Length'));
+      })
 
-        const buffer = Buffer.from(await realFetch.arrayBuffer());
-        let filename = Date.now().toString() + firstRes.url.split('=').pop();
+      if (fetchImage.status === 200) {
+
+        this.ctx.logger.warn("---fetch wallpaper", fetchImage)
+        this.ctx.set('Content-Type', fetchImage.headers.get('Content-Type'));
+        this.ctx.set('Content-Length', fetchImage.headers.get('Content-Length'));
+
+        const buffer = Buffer.from(await fetchImage.arrayBuffer());
+        let filename = dateStr + '_' + fetchImage.url.split('/').pop();
         const dest = resolve(UPLOAD_DIR, filename);
 
         await writeFile(dest, buffer, 'binary');
