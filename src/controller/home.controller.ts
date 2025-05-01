@@ -53,13 +53,15 @@ export class HomeController {
   })
   async wallpaper(@Param('date') dateStr: string = getNow(),
     @Param('lang') lang: 'zh-ch' | 'en-us' | 'en-gb' = 'zh-ch',
-    @Param('mode') mode: 'UHD' | 'FHD' | 'MBL' | 'MAK' = 'FHD') {
-    let wpURL = `https://dailybing.com/api/v1/${dateStr}/${lang}/${mode}`
+    @Param('mode') mode: 'UHD' | 'FHD' | 'MBL' | 'MAK' = 'UHD') {
+    // https://dailybing.com/show/20250428/zh-cn/FHD.html
+    let wpURL = `https://dailybing.com/show/${dateStr}/${lang}/${mode}.html`
     const chunk = await this.homeService.getURLChunk(wpURL)
 
     if (chunk?.id) {
       // this.ctx.logger.warn("used cached chunk", chunk)
       this.ctx.type = chunk.mimeType;
+      this.ctx.set("Cache-Control", "public, max-age=360000");
       this.ctx.body = createReadStream(resolve(chunk.data));
     } else {
       const firstUrl = dateStr === getNow() ? `https://dailybing.com/api/v1` : wpURL
