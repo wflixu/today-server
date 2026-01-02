@@ -31,5 +31,4 @@ export class ApiLogService {
     const ip = realIp ?? this.ctx.ip;
     return await this.apiLog.countBy({ ip });
   }
-
 }

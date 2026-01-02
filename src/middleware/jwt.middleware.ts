@@ -6,13 +6,13 @@ import { Context } from '@midwayjs/koa';
 @Middleware()
 export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
   @Config('jwtPassport')
-  jwtPassportConfig: { ignore: string[];[key: string]: any };
+  jwtPassportConfig: { ignore: string[]; [key: string]: any };
   getAuthenticateOptions(): Promise<AuthenticateOptions> | AuthenticateOptions {
     return {};
   }
 
   public ignore(ctx: Context): boolean {
-    let res = this.jwtPassportConfig.ignore.reduce((prev, cur) => {
+    const res = this.jwtPassportConfig.ignore.reduce((prev, cur) => {
       // console.warn('ignore', cur, ctx.path);
       return prev || ctx.path.startsWith(cur);
     }, false);

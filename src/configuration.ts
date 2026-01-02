@@ -18,7 +18,6 @@ import * as jwt from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 import * as upload from '@midwayjs/upload';
 
-
 dotenv.config();
 
 @Configuration({

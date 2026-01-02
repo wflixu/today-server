@@ -20,7 +20,6 @@ export interface IPagination {
   pageSize: number;
 }
 
-
 export interface INPost {
   title: string;
   description: string;
@@ -35,6 +34,3 @@ export interface INLocal {
   latitude: number;
   longitude: number;
 }
-
-
-

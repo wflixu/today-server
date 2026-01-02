@@ -32,8 +32,6 @@ export class UserService {
     ]);
   }
 
-  
-  
   async updateUser() {
     // this.userModel.update()
   }

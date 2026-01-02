@@ -21,12 +21,10 @@ export class QDZService {
   @InjectEntityModel(Participant)
   participantModel: Repository<Participant>;
 
-
-
   async list() {
-    let posts = await this.postModel.find({
-      relations: ['location']
-    })
+    const posts = await this.postModel.find({
+      relations: ['location'],
+    });
 
     return posts;
   }
@@ -35,11 +33,10 @@ export class QDZService {
   }
 
   async addParticipant(post_id: number, user_id: number, message: string) {
-
     const post = await this.postModel.findOne({
       where: {
-        post_id
-      }
+        post_id,
+      },
     });
     if (!post) {
       return null;
@@ -47,8 +44,8 @@ export class QDZService {
 
     const user = await this.userModel.findOne({
       where: {
-        id: user_id
-      }
+        id: user_id,
+      },
     });
     if (!user) {
       return null;
@@ -65,30 +62,27 @@ export class QDZService {
   async getPostParticipants(post_id: number) {
     return this.participantModel.find({
       where: {
-        post_id
+        post_id,
       },
-      relations: ['user']
-    })
+      relations: ['user'],
+    });
   }
 
   async delParticipant(id: number) {
-    return this.participantModel.delete(id)
+    return this.participantModel.delete(id);
   }
-
-
-
 
   async addPost(pr: INPost, userId: number) {
     const local = await this.qlocationModel.findOne({
       where: {
-        location_id: pr.location_id
-      }
+        location_id: pr.location_id,
+      },
     });
     const user = await this.userModel.findOne({
       where: {
-        id: userId
-      }
-    })
+        id: userId,
+      },
+    });
     if (!local || !user) {
       return null;
     }
@@ -105,22 +99,23 @@ export class QDZService {
   }
 
   async deletePost(post_id: number) {
-    return this.postModel.delete(post_id)
+    return this.postModel.delete(post_id);
   }
 
   async updatePost(pr: INPost & { post_id: number }) {
-
     const curPost = await this.postModel.findOne({
       where: {
-        post_id: pr.post_id
-      }
+        post_id: pr.post_id,
+      },
     });
     if (!curPost) {
       return null;
     }
     Object.assign(curPost, pr);
     if (pr.location_id) {
-      curPost.location = await this.qlocationModel.findOneBy({ location_id: pr.location_id });
+      curPost.location = await this.qlocationModel.findOneBy({
+        location_id: pr.location_id,
+      });
     }
 
     if (pr.event_time) {

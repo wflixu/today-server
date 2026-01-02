@@ -32,15 +32,14 @@ export class HomeService {
     return this.chunkModel.findOneBy({ id });
   }
   async getURLChunk(url: string) {
-    let urlChunk = await this.urlChunkModel.findOne({
+    const urlChunk = await this.urlChunkModel.findOne({
       where: { url },
-      relations: ['chunk']
+      relations: ['chunk'],
     });
     if (urlChunk) {
       return urlChunk.chunk;
     }
     return null;
-
   }
 
   async getChunks() {

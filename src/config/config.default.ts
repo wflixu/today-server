@@ -1,4 +1,3 @@
-import { MidwayConfig } from '@midwayjs/core';
 import { DefaultUploadFileMimeType, uploadWhiteList } from '@midwayjs/upload';
 import { tmpdir, homedir } from 'node:os';
 import { join } from 'node:path';
@@ -85,4 +84,4 @@ export default {
   ipBan: {
     maxTimes: 10000,
   },
-} as MidwayConfig;
+};

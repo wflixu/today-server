@@ -43,7 +43,6 @@ export class HomeController {
     return body;
   }
 
-
   @Get('/wallpaper/:date/:lang/:mode')
   @Get('/wallpaper')
   @SetHeader({
@@ -51,49 +50,57 @@ export class HomeController {
     'Content-Type': 'image/jpeg',
     'Content-Disposition': 'inline',
   })
-  async wallpaper(@Param('date') dateStr: string = getNow(),
+  async wallpaper(
+    @Param('date') dateStr: string = getNow(),
     @Param('lang') lang: 'zh-ch' | 'en-us' | 'en-gb' = 'zh-ch',
-    @Param('mode') mode: 'UHD' | 'FHD' | 'MBL' | 'MAK' = 'UHD') {
+    @Param('mode') mode: 'UHD' | 'FHD' | 'MBL' | 'MAK' = 'UHD'
+  ) {
     // https://dailybing.com/show/20250428/zh-cn/FHD.html
-    let wpURL = `https://dailybing.com/show/${dateStr}/${lang}/${mode}.html`
-    const chunk = await this.homeService.getURLChunk(wpURL)
+    const wpURL = `https://dailybing.com/show/${dateStr}/${lang}/${mode}.html`;
+    const chunk = await this.homeService.getURLChunk(wpURL);
 
     if (chunk?.id) {
-      this.ctx.logger.info("used cached chunk", chunk)
+      this.ctx.logger.info('used cached chunk', chunk);
       this.ctx.type = chunk.mimeType;
-      this.ctx.set("Cache-Control", "public, max-age=360000");
+      this.ctx.set('Cache-Control', 'public, max-age=360000');
       this.ctx.body = createReadStream(resolve(chunk.data));
     } else {
-      this.ctx.logger.info("no caced, get new image ,start ...", chunk)
-      let fetchImage = await fetch(wpURL, {
+      this.ctx.logger.info('no caced, get new image ,start ...', chunk);
+      const fetchImage = await fetch(wpURL, {
         method: 'GET',
         headers: {
-          'Content-Type': 'image/*'
-        }
-      })
+          'Content-Type': 'image/*',
+        },
+      });
 
       if (fetchImage.status === 200) {
-
-        this.ctx.logger.info("---fetch wallpaper", fetchImage)
+        this.ctx.logger.info('---fetch wallpaper', fetchImage);
         this.ctx.set('Content-Type', fetchImage.headers.get('Content-Type'));
-        this.ctx.set('Content-Length', fetchImage.headers.get('Content-Length'));
+        this.ctx.set(
+          'Content-Length',
+          fetchImage.headers.get('Content-Length')
+        );
 
         const buffer = Buffer.from(await fetchImage.arrayBuffer());
-        let filename = `${dateStr}_${mode}_` + fetchImage.url.split('/').pop();
+        const filename =
+          `${dateStr}_${mode}_` + fetchImage.url.split('/').pop();
         const dest = resolve(UPLOAD_DIR, filename);
 
         await writeFile(dest, buffer, 'binary');
-        let chunk = await this.homeService.addChunk({ filename, mimeType: 'image/jpeg', fieldName: 'paper', data: dest } as Chunk)
-        let urlchunk = await this.homeService.addURLChunk(wpURL, chunk)
+        const chunk = await this.homeService.addChunk({
+          filename,
+          mimeType: 'image/jpeg',
+          fieldName: 'paper',
+          data: dest,
+        } as Chunk);
+        const urlchunk = await this.homeService.addURLChunk(wpURL, chunk);
         this.ctx.body = buffer;
         this.ctx.status = 200;
       } else {
-        this.ctx.logger.warn("fetch wallpaper failed", fetchImage)
+        this.ctx.logger.warn('fetch wallpaper failed', fetchImage);
         this.ctx.status = 500;
       }
     }
-
-
   }
 
   @Get('/foo')
