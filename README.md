@@ -60,6 +60,12 @@ GET /ai/:platform/v1/models
 
 支持的平台：`deepseek`、`aliyun`
 
+阿里云平台支持的模型：
+- 千问：qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus
+- 智谱：glm-5, glm-4.7
+- Kimi：kimi-k2.5
+- MiniMax：MiniMax-M2.5
+
 示例：
 ```bash
 # 获取 DeepSeek 模型列表

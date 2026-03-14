@@ -94,13 +94,20 @@ export default {
       ],
     },
     aliyun: {
-      apiBase:
-        process.env.ALIYUN_API_BASE ||
-        'https://dashscope.aliyuncs.com/compatible-mode/v1',
+      apiBase: process.env.ALIYUN_API_BASE || 'https://coding.dashscope.aliyuncs.com/v1',
       models: [
-        { id: 'qwen-plus', owned_by: 'aliyun' },
-        { id: 'qwen-turbo', owned_by: 'aliyun' },
-        { id: 'qwen-max', owned_by: 'aliyun' },
+        // 千问
+        { id: 'qwen3.5-plus', owned_by: 'aliyun' },
+        { id: 'qwen3-max-2026-01-23', owned_by: 'aliyun' },
+        { id: 'qwen3-coder-next', owned_by: 'aliyun' },
+        { id: 'qwen3-coder-plus', owned_by: 'aliyun' },
+        // 智谱
+        { id: 'glm-5', owned_by: 'zhipu' },
+        { id: 'glm-4.7', owned_by: 'zhipu' },
+        // Kimi
+        { id: 'kimi-k2.5', owned_by: 'kimi' },
+        // MiniMax
+        { id: 'MiniMax-M2.5', owned_by: 'minimax' },
       ],
     },
     // Easy to add more platforms:
