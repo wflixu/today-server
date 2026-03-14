@@ -34,6 +34,7 @@ export default {
       '/ping',
       '/wallpaper',
       '/ip',
+      '/ai/',
     ],
   },
   tencentCloudSms: {
@@ -78,10 +79,34 @@ export default {
     match: /\/chunk\/upload/,
   },
   resultFormat: {
-    ignore: ['/chunk/show', '/chunk/down', '/release/update', '/wallpaper'],
+    ignore: ['/chunk/show', '/chunk/down', '/release/update', '/wallpaper', '/ai/'],
   },
   // 当个ip 最大访问现在
   ipBan: {
     maxTimes: 10000,
+  },
+  aiProxy: {
+    deepseek: {
+      apiBase: process.env.DEEPSEEK_API_BASE || 'https://api.deepseek.com/v1',
+      models: [
+        { id: 'deepseek-chat', owned_by: 'deepseek' },
+        { id: 'deepseek-reasoner', owned_by: 'deepseek' },
+      ],
+    },
+    aliyun: {
+      apiBase:
+        process.env.ALIYUN_API_BASE ||
+        'https://dashscope.aliyuncs.com/compatible-mode/v1',
+      models: [
+        { id: 'qwen-plus', owned_by: 'aliyun' },
+        { id: 'qwen-turbo', owned_by: 'aliyun' },
+        { id: 'qwen-max', owned_by: 'aliyun' },
+      ],
+    },
+    // Easy to add more platforms:
+    // moonshot: {
+    //   apiBase: 'https://api.moonshot.cn/v1',
+    //   models: [{ id: 'moonshot-v1-8k', owned_by: 'moonshot' }],
+    // },
   },
 };
