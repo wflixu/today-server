@@ -17,6 +17,7 @@ import * as passport from '@midwayjs/passport';
 import * as jwt from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 import * as upload from '@midwayjs/upload';
+import { AIRateLimitMiddleware } from './middleware/ai-rate-limit.middleware';
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ export class ContainerLifeCycle {
     this.app.useMiddleware([
       FormatMiddleware,
       JwtPassportMiddleware,
+      AIRateLimitMiddleware,
       ReportMiddleware,
     ]);
     // 获取中间件的名字

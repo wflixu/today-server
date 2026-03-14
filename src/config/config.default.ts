@@ -85,6 +85,10 @@ export default {
   ipBan: {
     maxTimes: 10000,
   },
+  // AI 接口单 IP 单日请求限制
+  aiRateLimit: {
+    maxDailyRequests: 10000,
+  },
   aiProxy: {
     deepseek: {
       apiBase: process.env.DEEPSEEK_API_BASE || 'https://api.deepseek.com/v1',
