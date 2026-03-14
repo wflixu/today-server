@@ -13,7 +13,8 @@
       "Bash(NODE_ENV=test NODE_TEST=1 pnpm exec midway-bin test:*)",
       "Bash(pnpm test:*)",
       "Bash(NODE_OPTIONS=\"--loader=tsx\" pnpm test:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
