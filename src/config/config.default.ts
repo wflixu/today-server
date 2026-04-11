@@ -8,6 +8,12 @@ export default {
     port: 8443,
     // globalPrefix: '/api',
   },
+  validate: {
+    errorStatus: 422,
+  },
+  validation: {
+    validators: {},
+  },
   cors: {
     credentials: false,
     origin: '*',

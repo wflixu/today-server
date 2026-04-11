@@ -4,23 +4,21 @@
   "description": "midway server postgresql ",
   "private": true,
   "dependencies": {
-    "@koa/cors": "^4.0.0",
-    "@midwayjs/bootstrap": "^3.20.19",
-    "@midwayjs/core": "^3.20.19",
-    "@midwayjs/cross-domain": "^3.20.19",
-    "@midwayjs/decorator": "^3.20.19",
-    "@midwayjs/info": "^3.20.19",
-    "@midwayjs/jwt": "^3.20.19",
-    "@midwayjs/koa": "^3.20.19",
-    "@midwayjs/logger": "^2.19.3",
-    "@midwayjs/passport": "^3.20.19",
-    "@midwayjs/typeorm": "^3.20.19",
-    "@midwayjs/upload": "^3.20.19",
-    "@midwayjs/validate": "^3.20.19",
+    "@koa/cors": "^5.0.0",
+    "@midwayjs/bootstrap": "^4.0.0",
+    "@midwayjs/core": "^4.0.0",
+    "@midwayjs/cross-domain": "^4.0.0",
+    "@midwayjs/info": "^4.0.0",
+    "@midwayjs/jwt": "^4.0.0",
+    "@midwayjs/koa": "^4.0.0",
+    "@midwayjs/logger": "^4.0.0",
+    "@midwayjs/passport": "^4.0.0",
+    "@midwayjs/typeorm": "^4.0.0",
+    "@midwayjs/upload": "^4.0.0",
+    "@midwayjs/validation": "^4.0.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "lodash": "^4.17.21",
-    "midway-tencent-cloud-sms": "0.2.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pg": "^8.16.3",
@@ -28,39 +26,40 @@
     "typeorm": "^0.3.28"
   },
   "devDependencies": {
-    "@midwayjs/cli": "^2.1.1",
-    "@midwayjs/mock": "^3.20.19",
+    "@midwayjs/skill-midway": "^4.0.2",
     "@types/bcrypt": "^6.0.0",
     "@types/koa": "^3.0.1",
+    "@types/lodash": "^4.17.24",
     "@types/node": "^24.0.0",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
     "@types/pg": "^8.16.0",
-    "c8": "^10.1.3",
+    "c8": "^11.0.0",
     "cross-env": "^10.0.0",
-    "mwts": "^1.3.0",
+    "mwts": "^2.0.4",
+    "mwtsc": "^1.16.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "~5.9.3"
+    "typescript": "~6.0.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@midwayjs/i18n": "4.0.0-beta.17"
+    },
+    "ignoredBuiltDependencies": [
+      "bcrypt",
+      "esbuild"
+    ]
   },
   "scripts": {
     "start": "NODE_ENV=production node ./bootstrap.js ",
-    "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
-    "test": "node --import ./test/register.mjs --test test/**/*.test.ts",
-    "test:watch": "node --import ./test/register.mjs --test --watch test/**/*.test.ts",
-    "lint": "mwts check",
-    "lint:fix": "mwts fix",
+    "dev": "cross-env NODE_ENV=local mwtsc --watch --run ./bootstrap.js",
     "ci": "pnpm test",
-    "typeorm": "typeorm-ts-node-commonjs",
-    "build": "midway-bin build -c"
+    "build": "mwtsc --cleanOutDir"
   },
-  "midway-bin-clean": [
-    ".vscode/.tsbuildinfo",
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wflixu/today-server.git"

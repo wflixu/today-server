@@ -1,7 +1,7 @@
 import { ApiLogService } from './../service/apilog.service';
-import { Middleware, IMiddleware, Config } from '@midwayjs/core';
+import { Middleware, IMiddleware, Config, httpError } from '@midwayjs/core';
 import { NextFunction, Context } from '@midwayjs/koa';
-import { UnauthorizedError } from '@midwayjs/core/dist/error/http';
+
 
 @Middleware()
 export class ReportMiddleware implements IMiddleware<Context, NextFunction> {
@@ -23,7 +23,7 @@ export class ReportMiddleware implements IMiddleware<Context, NextFunction> {
 
       const count = await apiLogService.getIpTimes();
       if (count > this.configIpBan.maxTimes) {
-        throw new UnauthorizedError();
+        throw new httpError.UnauthorizedError();
       }
       await apiLogService.addApiLog();
       // 这里可以拿到下一个中间件或者控制器的返回值
