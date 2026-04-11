@@ -12,8 +12,11 @@ export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
   }
 
   public ignore(ctx: Context): boolean {
-    console.log(ctx.path, this.jwtPassportConfig.ignore);
-    return this.jwtPassportConfig.ignore.includes(ctx.path);
+    const res = this.jwtPassportConfig.ignore.reduce((prev, cur) => {
+      // console.warn('ignore', cur, ctx.path);
+      return prev || ctx.path.startsWith(cur);
+    }, false);
+    return res;
   }
 
   static getName(): string {

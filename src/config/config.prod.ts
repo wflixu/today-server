@@ -1,5 +1,3 @@
-import { MidwayConfig } from '@midwayjs/core';
-
 export default {
   keys: '1639994056460_8009',
   koa: {
@@ -20,4 +18,4 @@ export default {
       },
     },
   },
-} as MidwayConfig;
+};

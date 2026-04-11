@@ -1,6 +1,6 @@
-import { Configuration, App } from '@midwayjs/core';
+import { Configuration, App, MainApp, CommonJSFileDetector } from '@midwayjs/core';
 import * as koa from '@midwayjs/koa';
-import * as validate from '@midwayjs/validate';
+import * as validation from '@midwayjs/validation';
 import * as info from '@midwayjs/info';
 import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
@@ -11,22 +11,23 @@ import { FormatMiddleware } from './middleware/format.middleware';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { UnauthorizedErrorFilter } from './filter/unauthorize.filter';
-import * as tencenCloudSms from 'midway-tencent-cloud-sms';
 import * as dotenv from 'dotenv';
 import * as passport from '@midwayjs/passport';
 import * as jwt from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
+import * as upload from '@midwayjs/upload';
+import { AIRateLimitMiddleware } from './middleware/ai-rate-limit.middleware';
 
 dotenv.config();
 
 @Configuration({
   imports: [
     koa,
-    validate,
+    validation,
     orm,
     crossDomain,
-    tencenCloudSms,
     jwt,
+    upload,
     passport,
     {
       component: info,
@@ -34,18 +35,20 @@ dotenv.config();
     },
   ],
   importConfigs: [join(__dirname, './config')],
+  detector: new CommonJSFileDetector(),
 })
 export class ContainerLifeCycle {
-  @App()
+  @MainApp()
   app: koa.Application;
 
   async onReady() {
     // add middleware
     this.app.useMiddleware([
       FormatMiddleware,
-      ReportMiddleware,
       JwtPassportMiddleware,
-    ]);
+      AIRateLimitMiddleware,
+      ReportMiddleware,
+    ] as any);
     // 获取中间件的名字
     // console.warn(this.app.getMiddleware().getNames());
     // add filter

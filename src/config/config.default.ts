@@ -1,13 +1,23 @@
-import { MidwayConfig } from '@midwayjs/core';
-
+import { DefaultUploadFileMimeType, uploadWhiteList } from '@midwayjs/upload';
+import { tmpdir, homedir } from 'node:os';
+import { join } from 'node:path';
 export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1681179064355_5949',
   koa: {
     port: 8443,
+    // globalPrefix: '/api',
+  },
+  validate: {
+    errorStatus: 422,
+  },
+  validation: {
+    validators: {},
   },
   cors: {
     credentials: false,
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
   },
   jwt: {
     // secret: readFileSync('/Users/lixu/dev/wflixu.cn_nginx/wflixu.cn.key'), // fs.readFileSync('xxxxx.key')
@@ -18,7 +28,20 @@ export default {
     session: false,
   },
   jwtPassport: {
-    ignore: ['/passport/login', '/passport/sms', 'passport/sign'],
+    ignore: [
+      '/passport/login',
+      '/passport/sms',
+      '/passport/sign',
+      '/release/',
+      '/chunk/show',
+      '/chunk/down',
+      '/chunk/imgs',
+      '/user',
+      '/ping',
+      '/wallpaper',
+      '/ip',
+      '/ai/',
+    ],
   },
   tencentCloudSms: {
     secretId: process.env.secretId,
@@ -33,7 +56,7 @@ export default {
       default: {
         type: 'postgres',
         host: '127.0.0.1',
-        port: 5432,
+        port: 5436,
         username: 'postgres',
         password: '123',
         database: 'today',
@@ -43,4 +66,64 @@ export default {
       },
     },
   },
-} as MidwayConfig;
+  upload: {
+    // mode: UploadMode, 默认为file，即上传到服务器临时目录，可以配置为 stream
+    mode: 'file',
+    // fileSize: string, 最大上传文件大小，默认为 10mb
+    fileSize: '10mb',
+    // whitelist: string[]，文件扩展名白名单
+    whitelist: [...uploadWhiteList, '.json'],
+    // eslint-disable-next-line prettier/prettier
+    mimeTypeWhiteList: null,
+    // tmpdir: string，上传的文件临时存储路径
+    tmpdir: join(tmpdir(), 'midway-upload-files'),
+    // cleanTimeout: number，上传的文件在临时目录中多久之后自动删除，默认为 5 分钟
+    cleanTimeout: 5 * 60 * 60 * 1000,
+    // base64: boolean，设置原始body是否是base64格式，默认为false，一般用于腾讯云的兼容
+    base64: false,
+    // 仅在匹配路径到 /api/upload 的时候去解析 body 中的文件信息
+    match: /\/chunk\/upload/,
+  },
+  resultFormat: {
+    ignore: ['/chunk/show', '/chunk/down', '/release/update', '/wallpaper', '/ai/'],
+  },
+  // 当个ip 最大访问现在
+  ipBan: {
+    maxTimes: 10000,
+  },
+  // AI 接口单 IP 单日请求限制
+  aiRateLimit: {
+    maxDailyRequests: 10000,
+  },
+  aiProxy: {
+    deepseek: {
+      apiBase: process.env.DEEPSEEK_API_BASE || 'https://api.deepseek.com/v1',
+      models: [
+        { id: 'deepseek-chat', owned_by: 'deepseek' },
+        { id: 'deepseek-reasoner', owned_by: 'deepseek' },
+      ],
+    },
+    aliyun: {
+      apiBase: process.env.ALIYUN_API_BASE || 'https://coding.dashscope.aliyuncs.com/v1',
+      models: [
+        // 千问
+        { id: 'qwen3.5-plus', owned_by: 'aliyun' },
+        { id: 'qwen3-max-2026-01-23', owned_by: 'aliyun' },
+        { id: 'qwen3-coder-next', owned_by: 'aliyun' },
+        { id: 'qwen3-coder-plus', owned_by: 'aliyun' },
+        // 智谱
+        { id: 'glm-5', owned_by: 'zhipu' },
+        { id: 'glm-4.7', owned_by: 'zhipu' },
+        // Kimi
+        { id: 'kimi-k2.5', owned_by: 'kimi' },
+        // MiniMax
+        { id: 'MiniMax-M2.5', owned_by: 'minimax' },
+      ],
+    },
+    // Easy to add more platforms:
+    // moonshot: {
+    //   apiBase: 'https://api.moonshot.cn/v1',
+    //   models: [{ id: 'moonshot-v1-8k', owned_by: 'moonshot' }],
+    // },
+  },
+};
