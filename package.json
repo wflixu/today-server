@@ -1,6 +1,6 @@
 {
   "name": "today-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "midway server postgresql ",
   "private": true,
   "dependencies": {
